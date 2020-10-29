@@ -1,0 +1,31 @@
+import BaseHttpService from './base-http.service';
+import queryString from 'query-string';
+
+export default class DocsService extends BaseHttpService {
+  fetchDocs({ personal, search}) {
+    const queryObj = {};
+
+    if (personal.length) {
+      queryObj.personal = personal;
+    }
+
+    if (search.length) {
+      queryObj.search = search;
+    }
+
+    const queryStr = queryString.stringify(queryObj);
+    return this.get('docs' + (queryStr ? `?${queryStr}` : ''));
+  }
+
+  async deleteDoc(id) {
+    await this.delete(`docs/${id}`);
+  }
+
+  updateDocPersonal(id, personal) {
+    return this.patch(`docs/${id}/personal`, { personal });
+  }
+
+  createDoc(title, content) {
+    return this.post(`docs`, { title, content });
+  }
+}
