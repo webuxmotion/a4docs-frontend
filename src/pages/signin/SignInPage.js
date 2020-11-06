@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
-import { Button, TextField } from '@material-ui/core';
 import styled from 'styled-components';
+import { inject } from 'mobx-react';
+
+import {ReactComponent as ArrowIcon} from '../../icons/arrow-icon.svg';
+
+import ErrorMessage from '../../components/ErrorMessage';
+import FullscreenWrapper from '../../components/FullscreenWrapper';
+import Title from '../../components/Title';
+import FormField from '../../components/FormField';
+import Button from '../../components/Button';
+import Link from '../../components/Link';
 
 import './SignInPage.scss';
-import { inject } from 'mobx-react';
-import ErrorMessage from '../../components/ErrorMessage';
+import LoginSignup from '../../components/LoginSignup';
 
-const Heading = styled.h1`
-  margin-top: 0;
-`;
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   max-width: 480px;
   width: 100%;
-  background-color: #edf4ff;
   padding: 30px;
+  margin: 0 auto;
   border-radius: 5px;
+  box-sizing: border-box;
 `;
 
-const FormField = styled(TextField)`
-  width: 100%;
+const FormFieldWrapper = styled.div`
+  padding-bottom: 28px;
+`;
+
+const ButtonWrapper = styled.div`
+  text-align: center;
+  padding-top: 20px;
+`;
+
+const BottomTextWrapper = styled.div`
+  text-align: center;
+  color: white;
+  padding-top: 30px;
 `;
 
 @inject('userStore', 'routerStore')
@@ -33,7 +50,9 @@ class SignInPage extends Component {
     };
   }
 
-  submit = async () => {
+  submit = async (e) => {
+    e.preventDefault();
+    
     this.setState({ errorMessage: null });
     const { username, password } = this.state;
 
@@ -54,49 +73,48 @@ class SignInPage extends Component {
     const { errorMessage } = this.state;
 
     return (
-      <div className="fullscreen-wrapper">
-        <FormContainer>
-          <Heading>A4Docs Login</Heading>
-          
-          {errorMessage && <ErrorMessage message={this.state.errorMessage} />}
+      <FullscreenWrapper>
+        <LoginSignup>
+          <Title center>Login</Title>  
+          <FormContainer onSubmit={this.submit}>        
+            {errorMessage && <ErrorMessage message={this.state.errorMessage} />}
 
-          <div>
-            <FormField
-              id="outlined-name"
-              label="Username"
-              margin="dense"
-              variant="outlined"
-              onChange={e => this.setState({ username: e.target.value })}
-            />
-          </div>
-          <div>
-            <FormField
-              id="outlined-name"
-              label="Password"
-              margin="dense"
-              variant="outlined"
-              type="password"
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-          </div>
-          <hr/>
-          <div>
-            <Button
-              style={{ marginBottom: '10px' }}
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={this.submit}
-            >
-              SIGN IN
-            </Button>
+            <FormFieldWrapper>
+              <FormField
+                id="username"
+                label="username"
+                margin="dense"
+                onChange={e => this.setState({ username: e.target.value })}
+              />
+            </FormFieldWrapper>
 
-            <Button fullWidth onClick={this.goToSignUp}>
-              SIGN UP
-            </Button>
-          </div>
-        </FormContainer>
-      </div>
+            <FormFieldWrapper>
+              <FormField
+                id="password"
+                label="password"
+                margin="dense"
+                type="password"
+                onChange={e => this.setState({ password: e.target.value })}
+              />
+            </FormFieldWrapper>
+            
+            <ButtonWrapper>
+              <Button
+                onClick={this.submit}
+                IconRight={ArrowIcon}
+                type="submit"
+              >
+                Login
+              </Button>
+            </ButtonWrapper>
+
+            <BottomTextWrapper>
+              <p>Don't have an account? <Link to="/signup">Create account</Link></p>
+            </BottomTextWrapper>
+            
+          </FormContainer>
+        </LoginSignup>
+      </FullscreenWrapper>
     );
   }
 }
