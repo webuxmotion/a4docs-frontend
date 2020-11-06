@@ -14,10 +14,22 @@ import dashed4 from '../images/dashed-4.svg';
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
+  padding-top: 50px;
+  align-items: flex-start;
 `;
 
 const imagesStyle = css`
   padding-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+
+  img {
+    object-fit: fill;
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const LeftImages = styled.div`
@@ -26,6 +38,7 @@ const LeftImages = styled.div`
 
 const RightImages = styled.div`
   ${imagesStyle}
+  justify-content: flex-end;
 `;
 
 const FormWrapper = styled.div`

@@ -28,7 +28,7 @@ const Label = styled.label`
 
 const FormField = ({ value, type, id, label, onChange }) => (
   <FormGroup>
-    <Label for={id}>{label}</Label>
+    <Label htmlFor={id}>{label}</Label>
     <Input id={id} type={type} value={value} onChange={onChange} />
   </FormGroup>
 );

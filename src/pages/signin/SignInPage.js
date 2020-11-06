@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { inject } from 'mobx-react';
 
-import {ReactComponent as ArrowIcon} from '../../icons/arrow-icon.svg';
+import { ReactComponent as ArrowIcon } from '../../icons/arrow-icon.svg';
 
 import ErrorMessage from '../../components/ErrorMessage';
 import FullscreenWrapper from '../../components/FullscreenWrapper';
@@ -10,10 +10,9 @@ import Title from '../../components/Title';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import Link from '../../components/Link';
-
-import './SignInPage.scss';
 import LoginSignup from '../../components/LoginSignup';
 
+import './SignInPage.scss';
 
 const FormContainer = styled.form`
   max-width: 480px;
@@ -100,7 +99,6 @@ class SignInPage extends Component {
             
             <ButtonWrapper>
               <Button
-                onClick={this.submit}
                 IconRight={ArrowIcon}
                 type="submit"
               >

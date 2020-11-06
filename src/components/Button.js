@@ -11,10 +11,14 @@ const ButtonWrapper = styled.button`
   color: #472BF3;
   font-size: 24px;
   font-weight: bold;
-  padding-right: 30px;
+  padding-right: 48px;
   padding-left: 48px;
   display: inline-flex;
   align-items: center;
+
+  &:hover {
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const IconRightWrapper = styled.span`
