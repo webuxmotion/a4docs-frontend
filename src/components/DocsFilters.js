@@ -71,7 +71,6 @@ class DocsFilters extends Component {
 
   handleStatusFilterChange = e => {
     const personal = e.target.value;
-    console.log('personal', personal);
     this.setState({ personal }, this.syncFilters);
   };
 

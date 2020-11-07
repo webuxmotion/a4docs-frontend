@@ -16,6 +16,16 @@ const DocsWrapper = styled.div`
 
 const DocsContainer = styled.div`
   padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const DocWrapper = styled.div`
+  padding: 20px;
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
 `;
 
 const EmptyDocsPlaceholder = styled.p`
@@ -35,17 +45,18 @@ class DocsPage extends Component {
     const { docsStore } = this.props;
 
     if (!docsStore.docs.length) {
-      return <EmptyDocsPlaceholder>No docs available. Create one?</EmptyDocsPlaceholder>
+      return <EmptyDocsPlaceholder>No docs available. <a href="/docs/create">Create one?</a></EmptyDocsPlaceholder>
     }
 
     return docsStore.docs.map(doc => (
-      <Doc
-        key={doc.id}
-        id={doc.id}
-        title={doc.title}
-        content={doc.content}
-        personal={doc.personal}
-      />
+      <DocWrapper key={doc.id}>
+        <Doc
+          id={doc.id}
+          title={doc.title}
+          content={doc.content}
+          personal={doc.personal}
+        />
+      </DocWrapper>
     ));
   };
 
@@ -54,7 +65,6 @@ class DocsPage extends Component {
       <FullscreenWrapper>
         <DocsWrapper>
           <DocsFilters />
-
           <DocsContainer>
             {this.renderDocs()}
           </DocsContainer>

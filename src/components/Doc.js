@@ -14,12 +14,68 @@ import styled from 'styled-components';
 import { inject } from 'mobx-react';
 
 const CardContainer = styled.div`
-  margin-bottom: 20px;
+  
 `;
 
 const CardTitle = styled.h1`
   margin: 8px 0;
   font-size: 22px;
+`;
+
+const Header = styled.div`
+  
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+`;
+
+const Actions = styled.div`
+  
+`;
+
+const PublicBadge = styled.span`
+  background-color: #0228ED;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 84px;
+  border-radius: 20px;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  position: absolute;
+  top: -12px;
+  left: 23px;
+`;
+
+const Content = styled.div`
+  position: relative;
+`;
+
+const DocPaper = styled.div`
+  width: 134px;
+  height: 189px;
+  background-color: white;
+  box-shadow: 0px 4px 60px rgba(0, 0, 0, 0.25);
+`;
+
+const DocContent = styled.div`
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  overflow: hidden;
+`;
+
+const DocText = styled.p`
+  font-size: 18px;
+  line-height: 25px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical; 
 `;
 
 @inject('docsStore')
@@ -34,10 +90,22 @@ class Doc extends Component {
 
   render() {
     const { title, content, personal } = this.props;
+    console.log(personal);
 
     return (
       <CardContainer>
-        <Card>
+        <Header>
+          <Title>{title}</Title>
+          <Actions />
+        </Header>
+        <Content>
+          <DocPaper />
+          {personal === 'FALSE' ? <PublicBadge>public</PublicBadge> : null}
+          <DocContent>
+            <DocText>{content}</DocText>
+          </DocContent>
+        </Content>
+        {/* <Card>
           <CardContent>
             <CardTitle>{title}</CardTitle>
             {content}
@@ -67,7 +135,7 @@ class Doc extends Component {
               </Grid>
             </Grid>
           </CardActions>
-        </Card>
+        </Card> */}
       </CardContainer>
     );
   }
