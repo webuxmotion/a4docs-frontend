@@ -5,11 +5,14 @@ export default class UserStore {
 
   constructor(authService) {
     this.authService = authService;
+    this.username = localStorage.getItem('username');
   }
 
   @action
   async signin(username, password) {
-    this.username = await this.authService.signin(username, password);
+    const res = await this.authService.signin(username, password);
+    localStorage.setItem('username', res);
+    this.username = res;
   }
 
   @action
@@ -20,6 +23,7 @@ export default class UserStore {
   @action
   signout() {
     this.username = null;
+    localStorage.removeItem('username');
     this.authService.removeToken();
   }
 }

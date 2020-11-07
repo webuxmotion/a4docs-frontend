@@ -6,6 +6,7 @@ export default class AuthService extends BaseHttpService {
     const result = await post(`${this.BASE_URL}/auth/signin`, { username, password });
     const accessToken = result.data.accessToken;
     this.saveToken(accessToken);
+    
     return result.data.username;
   }
 

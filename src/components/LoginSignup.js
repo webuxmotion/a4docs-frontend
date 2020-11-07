@@ -14,7 +14,7 @@ import dashed4 from '../images/dashed-4.svg';
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  padding-top: 50px;
+  padding-top: 150px;
   align-items: flex-start;
 `;
 
