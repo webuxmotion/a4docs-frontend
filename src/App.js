@@ -21,6 +21,7 @@ class App extends Component {
         <Route path="/signup/" component={SignUpPage} />
         <Route exact path="/docs" component={DocsPage} />
         <Route exact path="/docs/view/:id" component={ViewDocPage} />
+        <Route exact path="/docs/edit/:id" component={CreateDocPage} />
         <Route exact path="/docs/create" component={CreateDocPage} />
       </Fragment>
     );

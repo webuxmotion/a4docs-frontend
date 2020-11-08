@@ -82,7 +82,6 @@ class SignInPage extends Component {
               <FormField
                 id="username"
                 label="username"
-                margin="dense"
                 onChange={e => this.setState({ username: e.target.value })}
               />
             </FormFieldWrapper>
@@ -91,7 +90,6 @@ class SignInPage extends Component {
               <FormField
                 id="password"
                 label="password"
-                margin="dense"
                 type="password"
                 onChange={e => this.setState({ password: e.target.value })}
               />

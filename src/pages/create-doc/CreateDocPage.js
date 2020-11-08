@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
-import { TextField, FormControl, Button } from '@material-ui/core';
 import styled from 'styled-components';
 import { inject } from 'mobx-react';
-import ErrorMessage from '../../components/ErrorMessage';
 
-const FormWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+import ErrorMessage from '../../components/ErrorMessage';
+import FullscreenWrapper from '../../components/FullscreenWrapper';
+import DocLayout from '../../components/DocLayout';
+import FormField from '../../components/FormField';
+import Button from '../../components/Button';
+
+const TitleFieldWrapper = styled.div`
+  padding-left: 35px;
+  padding-bottom: 30px;
+  width: 390px;
 `;
 
-const FormContainer = styled.div`
-  max-width: 480px;
-  width: 100%;
-  background-color: #edf4ff;
-  padding: 30px;
-  border-radius: 5px;
+const ButtonWrapper = styled.div`
+  padding-top: 35px;
+`;
+
+const FormWrapper = styled.div`
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 35px;
+  width: 390px;
 `;
 
 @inject('docsStore', 'routerStore')
@@ -45,47 +50,49 @@ class CreateDocPage extends Component {
     }
   };
 
+  submit = (e) => {
+    e.preventDefault();
+    
+    this.handleSubmitDoc();
+  };
+
   render() {
     return (
-      <FormWrapper>
-        <FormContainer>
-          <h1>Create a new docd</h1>
-          <p>Fill the title and content please.</p>
-
-          { this.state.errorMessage && <ErrorMessage message={this.state.errorMessage} />}
-
-          <FormControl fullWidth>
-            <TextField
-              label="Title"
-              placeholder="Title"
-              margin="normal"
-              variant="outlined"
-              onChange={e => this.setState({ title: e.target.value })}
-            />
-          </FormControl>
-          <FormControl fullWidth>
-            <TextField
-              label="Content"
-              placeholder="Content"
-              multiline
-              rows="8"
-              margin="normal"
-              variant="outlined"
+      <FullscreenWrapper>
+        <form onSubmit={this.submit}>
+        <DocLayout
+          paperTheme="color"
+          title={(
+            <TitleFieldWrapper>
+              <FormField
+                id="title"
+                label="title"
+                onChange={e => this.setState({ title: e.target.value })}
+              />
+            </TitleFieldWrapper>
+          )}
+          backButtonClickHandler={() => this.props.routerStore.push('/docs')}
+        >
+          <FormWrapper>
+            <FormField
+              id="content"
+              label="content"
               onChange={e => this.setState({ content: e.target.value })}
             />
-          </FormControl>
 
-          <Button
-            style={{ marginTop: '10px' }}
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={this.handleSubmitDoc}
-          >
-            CREATE DOC
-          </Button>
-        </FormContainer>
-      </FormWrapper>
+            {this.state.errorMessage && <ErrorMessage message={this.state.errorMessage} />}
+
+            <ButtonWrapper>
+              <Button
+                type="submit"
+              >
+                Save
+              </Button>
+            </ButtonWrapper>
+          </FormWrapper>
+        </DocLayout>
+        </form>
+      </FullscreenWrapper>
     );
   }
 }

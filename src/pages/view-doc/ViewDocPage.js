@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 
-import Badge from '../../components/Badge';
-import BackButton from '../../components/BackButton';
 import DocDropdown from '../../components/DocDropdown';
+import DocLayout from '../../components/DocLayout';
 
 const HeroBackground = styled.div`
   position: absolute;
@@ -16,61 +15,27 @@ const HeroBackground = styled.div`
   background: linear-gradient(267.52deg, #8385FF 47.93%, #5642F6 102.26%);
 `;
 
-const BadgeWrapper = styled.div`
+const Actions = styled.div`
   position: absolute;
-  top: -12px;
-  left: 40px;
-`;
-
-const BackButtonWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: -150px;
-`;
-
-const DocWrapper = styled.div`
-  width: 720px;
-  margin: 0 auto;
+  left: 30px;
 `;
 
 const Title = styled.h1`
-  width: 720px;
-  margin: 0 auto;
   color: white;
   font-size: 36px;
   font-weight: 300;
   line-height: 36px;
   margin-bottom: 30px;
   padding: 0 40px;
-  box-sizing: border-box;
-`;
-
-const DocPaper = styled.div`
-  background-color: white;
-  position: relative;
-  box-shadow: 0px 4px 60px rgba(0, 0, 0, 0.13);
-`;
-
-const DocInner = styled.div`
-  padding-bottom: 140%;
-`;
-
-const DocCanvas = styled.div`
-  padding-bottom
 `;
 
 const ContentText = styled.p`
   position: absolute;
   top: 50px;
   left: 40px;
+  right: 40px;
   font-size: 24px;
   margin: 0;
-`;
-
-const Actions = styled.div`
-  position: absolute;
-  right: -80px;
-  top: 0;
 `;
 
 const EmptyDocsPlaceholder = styled.p`
@@ -81,7 +46,6 @@ const EmptyDocsPlaceholder = styled.p`
 
 const Content = styled.div`
   position: relative;
-  padding-top: 140px;
   padding-bottom: 100px;
   z-index: 20;
 `;
@@ -117,27 +81,25 @@ class DocsPage extends Component {
 
     return (
       <>
-        <Title>{title}</Title>
-        <DocWrapper>
-          <DocPaper>
-            <DocInner />
-            {personal === 'FALSE' ? <BadgeWrapper><Badge>public</Badge></BadgeWrapper> : null}
-            <BackButtonWrapper>
-              <BackButton onClick={() => this.props.routerStore.push('/docs')} />
-            </BackButtonWrapper>
-            <Actions>
-              <DocDropdown 
-                id={id}
-                personal={personal}
-                handleSetPersonal={this.handleSetPersonal}
-                handleDelete={this.deleteDoc}
-              />
-            </Actions>
-            <DocCanvas>
-              <ContentText>{content}</ContentText>
-            </DocCanvas>
-          </DocPaper>
-        </DocWrapper>
+        <DocLayout 
+          title={<Title>{title}</Title>}
+          backButtonClickHandler={() => this.props.routerStore.push('/docs')}
+          personal={personal}
+          rightSideContent={
+            (
+              <Actions>
+                <DocDropdown
+                  id={id}
+                  personal={personal}
+                  handleSetPersonal={this.handleSetPersonal}
+                  handleDelete={this.deleteDoc}
+                />
+              </Actions>
+            )
+          }
+        >
+          <ContentText>{content}</ContentText>
+        </DocLayout>
       </>
     )
   };
