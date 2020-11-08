@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as CircleDotsIcon } from '../icons/dots-in-circle.svg';
 import Dropdown from './Dropdown';
+import Badge from './Badge';
 
 const CardContainer = styled.div`
   width: 100%;
@@ -19,11 +21,18 @@ const Header = styled.div`
   width: 100%;
 `;
 
-const Title = styled.h2`
+const Title = styled(Link)`
   margin: 0;
+  display: inline-block;
   margin-bottom: 20px;
   font-size: 24px;
   padding-right: 80px;
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(38, 0, 117);
+  }
 `;
 
 const DropdownWrapper = styled.div`
@@ -48,21 +57,6 @@ const ActionsButton = styled.div`
   &:active {
     opacity: 0.5;
   }
-`;
-
-const PublicBadge = styled.span`
-  background-color: #0228ED;
-  color: white;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
-  min-width: 84px;
-  border-radius: 20px;
-  padding: 5px 20px;
-  box-sizing: border-box;
-  position: absolute;
-  top: -12px;
-  left: 23px;
 `;
 
 const Content = styled.div`
@@ -90,6 +84,12 @@ const DocText = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical; 
+`;
+
+const BadgeWrapper = styled.div`
+  position: absolute;
+  top: -12px;
+  left: 23px;
 `;
 
 @inject('docsStore', 'routerStore')
@@ -132,11 +132,11 @@ class Doc extends Component {
           />
         </DropdownWrapper>
         <Header>
-          <Title>{title}</Title>
+          <Title to={`/docs/view/${id}`}>{title}</Title>
         </Header>
         <Content>
           <DocPaper />
-          {personal === 'FALSE' ? <PublicBadge>public</PublicBadge> : null}
+          {personal === 'FALSE' ? <BadgeWrapper><Badge>public</Badge></BadgeWrapper> : null}
           <DocContent>
             <DocText>{content}</DocText>
           </DocContent>

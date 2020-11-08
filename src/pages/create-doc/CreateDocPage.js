@@ -49,7 +49,7 @@ class CreateDocPage extends Component {
     return (
       <FormWrapper>
         <FormContainer>
-          <h1>Create a new doc</h1>
+          <h1>Create a new docd</h1>
           <p>Fill the title and content please.</p>
 
           { this.state.errorMessage && <ErrorMessage message={this.state.errorMessage} />}

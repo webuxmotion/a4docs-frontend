@@ -17,6 +17,10 @@ export default class DocsService extends BaseHttpService {
     return this.get('docs' + (queryStr ? `?${queryStr}` : ''));
   }
 
+  fetchDoc(id) {
+    return this.get(`docs/${id}`);
+  }
+
   async deleteDoc(id) {
     await this.delete(`docs/${id}`);
   }

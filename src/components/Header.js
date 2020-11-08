@@ -12,6 +12,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   padding-top: 30px;
+  z-index: 40;
 `;
 
 const NavList = styled.ul`

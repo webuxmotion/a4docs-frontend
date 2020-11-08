@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 
 export default class DocsStore {
   @observable docs = [];
+  @observable doc = null;
   @observable filters = { personal: '', search: '' };
 
   constructor(docsService) {
@@ -25,6 +26,15 @@ export default class DocsStore {
 
     if (result) {
       this.docs = result.data;
+    }
+  }
+
+  @action
+  async fetchDoc(id) {
+    const result = await this.docsService.fetchDoc(id);
+
+    if (result) {
+      this.doc = result.data;
     }
   }
 

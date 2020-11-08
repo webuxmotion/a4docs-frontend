@@ -6,6 +6,7 @@ import SignInPage from './pages/signin/SignInPage';
 import SignUpPage from './pages/signup/SignUpPage';
 import DocsPage from './pages/docs/DocsPage';
 import CreateDocPage from './pages/create-doc/CreateDocPage';
+import ViewDocPage from './pages/view-doc/ViewDocPage';
 import Header from './components/Header';
 
 @inject('routerStore')
@@ -19,6 +20,7 @@ class App extends Component {
         <Route path="/signin/" component={SignInPage} />
         <Route path="/signup/" component={SignUpPage} />
         <Route exact path="/docs" component={DocsPage} />
+        <Route exact path="/docs/view/:id" component={ViewDocPage} />
         <Route exact path="/docs/create" component={CreateDocPage} />
       </Fragment>
     );

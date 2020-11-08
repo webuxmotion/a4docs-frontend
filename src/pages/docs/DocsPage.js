@@ -34,7 +34,7 @@ const EmptyDocsPlaceholder = styled.p`
   font-size: 22px;
 `;
 
-@inject('docsStore', 'routerStore', 'userStore')
+@inject('docsStore')
 @observer
 class DocsPage extends Component {
   componentDidMount() {
