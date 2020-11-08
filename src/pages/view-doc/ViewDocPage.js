@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Badge from '../../components/Badge';
 import BackButton from '../../components/BackButton';
+import DocDropdown from '../../components/DocDropdown';
 
 const HeroBackground = styled.div`
   position: absolute;
@@ -66,6 +67,12 @@ const ContentText = styled.p`
   margin: 0;
 `;
 
+const Actions = styled.div`
+  position: absolute;
+  right: -80px;
+  top: 0;
+`;
+
 const EmptyDocsPlaceholder = styled.p`
   color: #edf4ff;
   text-align: center;
@@ -88,6 +95,17 @@ class DocsPage extends Component {
     this.props.docsStore.fetchDoc(id);
   }
 
+  deleteDoc = () => {
+    const { match: { params: { id } } } = this.props;
+    this.props.docsStore.deleteDoc(id);
+  };
+
+  handleSetPersonal = (value) => {
+    const { match: { params: { id } } } = this.props;
+
+    this.props.docsStore.updateDocPersonal(id, value);
+  };
+
   renderDoc = () => {
     const { docsStore } = this.props;
 
@@ -105,8 +123,16 @@ class DocsPage extends Component {
             <DocInner />
             {personal === 'FALSE' ? <BadgeWrapper><Badge>public</Badge></BadgeWrapper> : null}
             <BackButtonWrapper>
-              <BackButton onClick={() => this.props.routerStore.push('/docs')} />  
+              <BackButton onClick={() => this.props.routerStore.push('/docs')} />
             </BackButtonWrapper>
+            <Actions>
+              <DocDropdown 
+                id={id}
+                personal={personal}
+                handleSetPersonal={this.handleSetPersonal}
+                handleDelete={this.deleteDoc}
+              />
+            </Actions>
             <DocCanvas>
               <ContentText>{content}</ContentText>
             </DocCanvas>

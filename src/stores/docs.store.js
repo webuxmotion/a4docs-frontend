@@ -52,12 +52,21 @@ export default class DocsStore {
     const idx = this.docs.findIndex(doc => doc.id === id);
     await this.docsService.deleteDoc(id);
     this.docs.splice(idx, 1);
+    
+    if (this.doc) {
+      this.doc = null;
+    }
   }
 
   @action
   async updateDocPersonal(id, personal) {
     const doc = this.docs.find(doc => doc.id === id);
     await this.docsService.updateDocPersonal(id, personal);
-    doc.personal = personal;
+    if (doc) {
+      doc.personal = personal;
+    }
+    if (this.doc) {
+      this.doc.personal = personal;
+    }
   }
 }

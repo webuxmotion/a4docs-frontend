@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as CircleDotsIcon } from '../icons/dots-in-circle.svg';
-import Dropdown from './Dropdown';
 import Badge from './Badge';
+import DocDropdown from './DocDropdown';
 
 const CardContainer = styled.div`
   width: 100%;
@@ -40,23 +39,6 @@ const DropdownWrapper = styled.div`
   top: 0;
   right: 0;
   z-index: 20;
-`;
-
-const ActionsButton = styled.div`
-  cursor: pointer;
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 0.3;
-
-    svg circle {
-      stroke: black;
-    }
-  }
-
-  &:active {
-    opacity: 0.5;
-  }
 `;
 
 const Content = styled.div`
@@ -108,27 +90,11 @@ class Doc extends Component {
     return (
       <CardContainer>
         <DropdownWrapper>
-          <Dropdown 
-            button={({ onClick }) => (
-              <ActionsButton onClick={onClick}>
-                <CircleDotsIcon />
-              </ActionsButton>
-            )}
-            items={[
-              {
-                title: "Edit",
-                onClick: () => this.props.routerStore.push(`/docs/edit/${id}`)
-              },
-              {
-                title: `Make ${personal === "TRUE" ? 'public' : 'private'}`,
-                onClick: () => this.handleSetPersonal(personal === "TRUE" ? "FALSE" : "TRUE")
-              },
-              {
-                title: "Delete",
-                theme: "danger",
-                onClick: this.deleteDoc
-              }
-            ]}
+          <DocDropdown 
+            id={id}
+            personal={personal}
+            handleSetPersonal={this.handleSetPersonal}
+            handleDelete={this.deleteDoc}
           />
         </DropdownWrapper>
         <Header>
