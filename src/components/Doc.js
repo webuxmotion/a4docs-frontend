@@ -1,39 +1,53 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardContent,
-  CardActions,
-  IconButton,
-  MenuItem,
-  Select,
-  FormControl,
-  Grid
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';
 import { inject } from 'mobx-react';
 
-const CardContainer = styled.div`
-  
-`;
+import { ReactComponent as CircleDotsIcon } from '../icons/dots-in-circle.svg';
+import Dropdown from './Dropdown';
 
-const CardTitle = styled.h1`
-  margin: 8px 0;
-  font-size: 22px;
+const CardContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  position: relative;
 `;
 
 const Header = styled.div`
-  
+  position: relative;
+  width: 100%;
 `;
 
 const Title = styled.h2`
   margin: 0;
   margin-bottom: 20px;
   font-size: 24px;
+  padding-right: 80px;
 `;
 
-const Actions = styled.div`
-  
+const DropdownWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 20;
+`;
+
+const ActionsButton = styled.div`
+  cursor: pointer;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.3;
+
+    svg circle {
+      stroke: black;
+    }
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
 `;
 
 const PublicBadge = styled.span`
@@ -78,25 +92,47 @@ const DocText = styled.p`
   -webkit-box-orient: vertical; 
 `;
 
-@inject('docsStore')
+@inject('docsStore', 'routerStore')
 class Doc extends Component {
   deleteDoc = () => {
     this.props.docsStore.deleteDoc(this.props.id);
   };
 
-  handleStatusChange = e => {
-    this.props.docsStore.updateDocPersonal(this.props.id, e.target.value);
+  handleSetPersonal = (value) => {
+    this.props.docsStore.updateDocPersonal(this.props.id, value);
   };
 
   render() {
-    const { title, content, personal } = this.props;
-    console.log(personal);
+    const { title, content, personal, id } = this.props;
 
     return (
       <CardContainer>
+        <DropdownWrapper>
+          <Dropdown 
+            button={({ onClick }) => (
+              <ActionsButton onClick={onClick}>
+                <CircleDotsIcon />
+              </ActionsButton>
+            )}
+            items={[
+              {
+                title: "Edit",
+                onClick: () => this.props.routerStore.push(`/docs/edit/${id}`)
+              },
+              {
+                title: `Make ${personal === "TRUE" ? 'public' : 'private'}`,
+                onClick: () => this.handleSetPersonal(personal === "TRUE" ? "FALSE" : "TRUE")
+              },
+              {
+                title: "Delete",
+                theme: "danger",
+                onClick: this.deleteDoc
+              }
+            ]}
+          />
+        </DropdownWrapper>
         <Header>
           <Title>{title}</Title>
-          <Actions />
         </Header>
         <Content>
           <DocPaper />
@@ -105,37 +141,6 @@ class Doc extends Component {
             <DocText>{content}</DocText>
           </DocContent>
         </Content>
-        {/* <Card>
-          <CardContent>
-            <CardTitle>{title}</CardTitle>
-            {content}
-          </CardContent>
-          <CardActions style={{ padding: '14px' }} disableSpacing>
-            <Grid
-              justify="space-between" // Add it here :)
-              container 
-            >
-              <Grid item>
-                <FormControl style={{ width: '140px' }}>
-                  <Select
-                    value={personal}
-                    onChange={this.handleStatusChange}
-                    displayEmpty
-                  >
-                    <MenuItem value={'TRUE'}>Personal</MenuItem>
-                    <MenuItem value={'FALSE'}>Public</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item>
-                <IconButton onClick={this.deleteDoc}>
-                  <DeleteIcon color="error" />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </CardActions>
-        </Card> */}
       </CardContainer>
     );
   }
