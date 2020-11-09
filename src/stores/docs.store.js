@@ -69,4 +69,11 @@ export default class DocsStore {
       this.doc.personal = personal;
     }
   }
+
+  @action
+  async updateDoc(id, title, content) {
+    const newDoc = await this.docsService.updateDoc(id, title, content);
+
+    this.doc = newDoc.data;
+  }
 }

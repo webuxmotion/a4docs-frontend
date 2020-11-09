@@ -16,6 +16,13 @@ const BadgeWrapper = styled.div`
   left: 40px;
 `;
 
+const PageTitle = styled.h2`
+  color: white;
+  font-size: 45px;
+  font-weight: bold;
+  width: 135px;
+`;
+
 const Title = styled.div`
   width: 720px;
   margin: 0 auto;
@@ -34,8 +41,10 @@ const Side = styled.div`
 `;
 
 const SideWrapper = styled(Side)`
-  justify-content: flex-end;
+  align-items: flex-end;
   padding-right: 50px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const PaperWrapper = styled.div`
@@ -44,7 +53,15 @@ const PaperWrapper = styled.div`
   flex-basis: 1;
 `;
 
-const DocLayout = ({ children, personal, title, paperTheme, rightSideContent, backButtonClickHandler }) => (
+const DocLayout = ({ 
+  children, 
+  personal, 
+  title, 
+  paperTheme, 
+  rightSideContent, 
+  backButtonClickHandler,
+  pageTitle
+}) => (
   <Wrapper>
     <Title>
       {title}
@@ -52,6 +69,7 @@ const DocLayout = ({ children, personal, title, paperTheme, rightSideContent, ba
     <Body>
       <SideWrapper>
         <BackButton onClick={backButtonClickHandler} />
+        {pageTitle ? <PageTitle>{pageTitle}</PageTitle> : null}
       </SideWrapper>
       <PaperWrapper>
         <DocPaper theme={paperTheme}>

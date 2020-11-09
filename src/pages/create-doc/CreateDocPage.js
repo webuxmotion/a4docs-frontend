@@ -72,6 +72,7 @@ class CreateDocPage extends Component {
             </TitleFieldWrapper>
           )}
           backButtonClickHandler={() => this.props.routerStore.push('/docs')}
+          pageTitle="Create docu ment"
         >
           <FormWrapper>
             <FormField

@@ -29,6 +29,10 @@ export default class DocsService extends BaseHttpService {
     return this.patch(`docs/${id}/personal`, { personal });
   }
 
+  updateDoc(id, title, content) {
+    return this.patch(`docs/${id}`, { title, content });
+  }
+
   createDoc(title, content) {
     return this.post(`docs`, { title, content });
   }
