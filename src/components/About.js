@@ -15,6 +15,7 @@ import { ReactComponent as ArrowIcon } from '../icons/arrow-icon.svg';
 const Wrapper = styled.div`
   padding-top: 120px;
   padding-bottom: 100px;
+  background-color: white;
 `;
 
 const ButtonWrapper = styled.div`
