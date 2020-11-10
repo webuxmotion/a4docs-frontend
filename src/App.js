@@ -19,6 +19,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
+
         <Route exact path="/" component={LandingPage} />
         <Route path="/signin/" component={SignInPage} />
         <Route path="/signup/" component={SignUpPage} />
