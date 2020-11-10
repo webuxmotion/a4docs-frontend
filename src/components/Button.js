@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { inject, observer } from 'mobx-react';
 
 const ButtonWrapper = styled.button`
   background-color: white;
@@ -21,19 +22,45 @@ const ButtonWrapper = styled.button`
   }
 `;
 
+const ThemeSecondary = styled(ButtonWrapper)`
+  color: #472BF3;
+  background-color: #E9E5FF;
+
+  &:hover {
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.02);
+  }
+`;
+
 const IconRightWrapper = styled.span`
   margin-left: 20px;
 `;
 
-const Button = ({ children, onClick, IconRight, type = "button" }) => (
-  <ButtonWrapper onClick={onClick} type={type}>
+const ThemedButton = ({ routerStore, children, to, ...rest }) => {
+  switch (rest.theme) {
+    case "secondary":
+      return (
+        <ThemeSecondary {...rest}>
+          {children}
+        </ThemeSecondary>
+      )
+    default:
+      return (
+        <ButtonWrapper {...rest}>
+          {children}
+        </ButtonWrapper>
+      )
+  }
+};
+
+const Button = inject('routerStore')(observer(({ routerStore, children, IconRight, type = "button", to, ...rest }) => (
+  <ThemedButton type={type} {...rest} onClick={to ? () => routerStore.push(to) : rest?.onClick}>
     {children}
     {IconRight && (
       <IconRightWrapper>
         <IconRight style={{ display: 'block'}} />
       </IconRightWrapper>
     )}
-  </ButtonWrapper>
-);
+  </ThemedButton>
+)));
 
 export default Button;
