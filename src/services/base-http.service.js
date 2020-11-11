@@ -17,13 +17,13 @@ export default class BaseHttpService {
   async post(endpoint, data = {}, options = {}) {
     Object.assign(options, this._getCommonOptions());
     return axios.post(`${this.BASE_URL}/${endpoint}`, data, options)
-      .catch(error => this._handleHttpError(error));  
+      .catch(error => this._handleHttpError(error));
   }
 
   async delete(endpoint, options = {}) {
     Object.assign(options, this._getCommonOptions());
     return axios.delete(`${this.BASE_URL}/${endpoint}`, options)
-      .catch(error => this._handleHttpError(error));     
+      .catch(error => this._handleHttpError(error));
   }
 
   async patch(endpoint, data = {}, options = {}) {

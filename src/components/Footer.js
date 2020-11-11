@@ -9,7 +9,7 @@ import Menu from './Menu';
 import { ReactComponent as ArrowIcon } from '../icons/arrow-icon.svg';
 
 const Wrapper = styled.div`
-  padding-top: 100px;
+  padding-top: 140px;
   padding-bottom: 20px;
   background: linear-gradient(245.17deg, #8486FF 29.42%, #4529F3 101.91%);
 `;
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const Top = styled.div`
   display: flex;
   align-items: center;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
 `;
 
 const Bottom = styled.div`
@@ -65,11 +65,10 @@ const Footer = inject('userStore')(observer(({ userStore: { username } }) => {
               <span>Phone: +38 (095) 134 33 38</span>
             </Text>
           </Cell>
-          <Cell>
+          <Cell style={{ flexGrow: 0 }}>
             <Button
               IconRight={!username ? ArrowIcon : null}
               to={username ? '/docs' : '/signin'}
-              theme="secondary"
             >
               {username ? 'Documents' : 'Login'}
             </Button>
