@@ -12,12 +12,21 @@ a {
   color: white;
 }
 
+ul {
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .container {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
 }

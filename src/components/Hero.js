@@ -2,20 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 
+import bp from '../constants/bp';
 import Button from './Button';
-
 import { ReactComponent as ArrowIcon } from '../icons/arrow-icon.svg';
-
 import heroImage from '../images/hero-image.png';
 
 const Wrapper = styled.div`
   background: linear-gradient(229.45deg, #8486FF 15.33%, #4529F3 93.33%);
   padding-top: 100px;
   padding-bottom: 100px;
+
+  ${bp.from2to1} {
+    padding-bottom: 80px;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
+
+  ${bp.from2to1} {
+    flex-direction: column-reverse;
+  }
 `;
 
 const Cell = styled.div`
@@ -25,11 +32,26 @@ const Cell = styled.div`
   justify-content: center;
   flex-grow: 1;
   flex-basis: 0;
+  padding-right: 20px;
+
+  ${bp.from2to1} {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const CellWithImage = styled(Cell)`
   align-items: center;
   padding-top: 30px;
+
+  ${bp.from2to1} {
+    padding-top: 0;
+    padding-bottom: 30px;
+    
+    img {
+      max-width: 200px;
+    }
+  }
 `;
 
 const Title = styled.div`

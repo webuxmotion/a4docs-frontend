@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import bp from '../constants/bp';
 import Menu from './Menu';
+import Logo from './Logo';
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -9,12 +11,28 @@ const HeaderWrapper = styled.div`
   position: absolute;
   padding-top: 30px;
   z-index: 40;
-  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ${bp.from2to1} {
+    padding: 0 20px;
+    padding-top: 20px;
+  }
+`;
+
+const HeaderCell = styled.div`
+  position: relative;
 `;
 
 const Header = () => (
   <HeaderWrapper>
-    <Menu />
+    <HeaderCell>
+      <Logo />
+    </HeaderCell>
+    <HeaderCell>
+      <Menu />
+    </HeaderCell>
   </HeaderWrapper>
 );
 
