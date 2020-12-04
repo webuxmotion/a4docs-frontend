@@ -6,10 +6,16 @@ const LogoWrapper = styled.a`
   text-decoration: none;
   font-size: 24px;
   font-weight: bold;
+
+  ${({ theme }) => {
+    if (theme === 'primary') {
+      return 'color: #472bf2;'
+    }
+  }}
 `;
 
-const Header = ({ children, center }) => (
-  <LogoWrapper center={center} href="/">A4Docs</LogoWrapper>
+const Header = ({ children, center, theme }) => (
+  <LogoWrapper theme={theme} center={center} href="/">A4Docs</LogoWrapper>
 );
 
 export default Header;

@@ -60,6 +60,10 @@ const Title = styled.div`
   max-width: 460px;
   margin-bottom: 30px;
   font-weight: bold;
+
+  ${bp.from2to1} {
+    font-size: 30px;
+  }
 `;
 
 const Description = styled.div`

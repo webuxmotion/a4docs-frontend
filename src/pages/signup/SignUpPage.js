@@ -13,6 +13,7 @@ import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import Link from '../../components/Link';
 import LoginSignup from '../../components/LoginSignup';
+import bp from '../../constants/bp';
 
 const FormContainer = styled.form`
   max-width: 480px;
@@ -21,6 +22,11 @@ const FormContainer = styled.form`
   margin: 0 auto;
   border-radius: 5px;
   box-sizing: border-box;
+
+  ${bp.from2to1} {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 `;
 
 const FormFieldWrapper = styled.div`

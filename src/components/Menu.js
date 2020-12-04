@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 
 import bp from '../constants/bp';
-
+import Logo from './Logo';
 import { ReactComponent as MenuIconSvg } from '../icons/menu.svg';
 import { ReactComponent as CloseIconSvg } from '../icons/close.svg';
 
@@ -29,6 +29,14 @@ const NavList = styled.ul`
       ${({ activemenu }) => activemenu === 'true' ?
        'translateX(0)' : 
        'translateX(400px)'};
+  }
+
+  ${bp.mobile} {
+    width: 100%;
+    transform: 
+      ${({ activemenu }) => activemenu === 'true' ?
+       'translateX(0)' : 
+       'translateX(100%)'};
   }
 `;
 
@@ -74,20 +82,22 @@ const MenuIcon = styled(MenuIconSvg)`
   }
 `;
 
+const CloseIconWrapper = styled.div`
+  display: none;
+  justify-content: space-between;
+  padding: 20px;
+
+  ${bp.from2to1} {
+    display: flex;
+  }
+`;
+
 const CloseIcon = styled(CloseIconSvg)`
   width: 30px;
   height: 30px;
   fill: #472bf2;
   cursor: pointer;
-  display: none;
   opacity: ${({ activemenu }) => activemenu === 'true' ? 0.4 : 1};
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-
-  ${bp.from2to1} {
-    display: block;
-  }
 `;
 
 @inject('docsStore', 'routerStore', 'userStore')
@@ -120,13 +130,16 @@ class Menu extends Component {
           activemenu={activeMenu.toString()}
         />
         <NavList activemenu={activeMenu.toString()}>
+          <CloseIconWrapper>
+            <Logo theme="primary" />
+            <CloseIcon 
+              onClick={() => 
+                this.setState({ activeMenu: false })
+              }
+            />
+          </CloseIconWrapper>
           {username ?
             <>
-              <CloseIcon 
-                onClick={() => 
-                  this.setState({ activeMenu: false })
-                }
-              />
               <NavItem>
                 <NavLink href="/docs">Documents</NavLink>
               </NavItem>

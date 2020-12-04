@@ -9,10 +9,10 @@ import Footer from '../../components/Footer';
 const LandingPage = () => (
   <div>
     <Hero />
-    <About />
-    <Services />
+    {/* <About /> */}
+    {/* <Services />
     <Reviews />
-    <Footer />
+    <Footer /> */}
   </div>
 );
 
