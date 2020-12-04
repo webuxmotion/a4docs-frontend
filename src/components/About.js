@@ -11,16 +11,26 @@ import { ReactComponent as About2 } from '../icons/about-2.svg';
 import { ReactComponent as About3 } from '../icons/about-3.svg';
 import { ReactComponent as About4 } from '../icons/about-4.svg';
 import { ReactComponent as ArrowIcon } from '../icons/arrow-icon.svg';
+import bp from '../constants/bp';
 
 const Wrapper = styled.div`
   padding-top: 120px;
   padding-bottom: 100px;
   background-color: white;
+
+  ${bp.mobile} {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   text-align: center;
   padding-top: 100px;
+
+  ${bp.mobile} {
+    padding-top: 30px;
+  }
 `;
 
 const Items = styled.div`
@@ -34,6 +44,10 @@ const Item = styled.div`
   padding: 20px;
   width: 50%;
   box-sizing: border-box;
+
+  ${bp.mobile} {
+    width: 100%;
+  }
 `;
 
 const Hero = inject('userStore')(observer(({ userStore: { username } }) => {
@@ -41,7 +55,7 @@ const Hero = inject('userStore')(observer(({ userStore: { username } }) => {
   return (
     <Wrapper>
       <div className="container">
-        <Title theme="dark">Innovative documents</Title>
+        <Title center theme="dark">Innovative documents</Title>
 
         <Items>
           <Item>

@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import bp from '../constants/bp';
 
 const Wrapper = styled.div`
   display: flex;
+
+  ${bp.mobile} {
+    flex-direction: column;
+  }
 `;
 
 const Content = styled.div`
@@ -11,6 +16,12 @@ const Content = styled.div`
   padding-left: 36px;
   padding-right: 20px;
   max-width: 300px;
+
+  ${bp.mobile} {
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
 `;
 
 const IconBox = styled.div`
@@ -22,6 +33,12 @@ const IconBox = styled.div`
   border-radius: 12px;
   background-color: #E9E5FF;
   flex-shrink: 0;
+
+  ${bp.mobile} {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
 `;
 
 const Title = styled.h3`

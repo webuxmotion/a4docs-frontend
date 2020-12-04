@@ -25,6 +25,13 @@ const Container = styled.div`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  display: block;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
+`;
+
 const Cell = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,7 +42,9 @@ const Cell = styled.div`
   padding-right: 20px;
 
   ${bp.from2to1} {
+    flex-basis: auto;
     align-items: center;
+    padding-right: 0;
     text-align: center;
   }
 `;
@@ -50,6 +59,12 @@ const CellWithImage = styled(Cell)`
     
     img {
       max-width: 200px;
+    }
+  }
+
+  ${bp.mobile} {
+    img {
+      max-width: 120px;
     }
   }
 `;
@@ -81,12 +96,14 @@ const Hero = inject('routerStore', 'userStore')(observer(({ routerStore, userSto
         <Cell>
           <Title>Create A4 documents and share with people with fun</Title>
           <Description>Save what you want with A4Docs and share with friends in easy way</Description>
-          <Button
-            IconRight={!username ? ArrowIcon : null}
-            onClick={() => routerStore.push(username ? '/docs' : '/signin')}
-          >
-            {username ? 'See documents' : 'Login now'}
-          </Button>
+          <ButtonWrapper>
+            <Button
+              IconRight={!username ? ArrowIcon : null}
+              onClick={() => routerStore.push(username ? '/docs' : '/signin')}
+            >
+              {username ? 'See documents' : 'Login now'}
+            </Button>
+          </ButtonWrapper>
         </Cell>
         <CellWithImage>
           <img src={heroImage} alt="Documents hero composition" />

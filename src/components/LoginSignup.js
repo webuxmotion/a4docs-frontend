@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import bp from '../constants/bp';
+
 import dog1 from '../images/dog-1.jpg';
 import dog2 from '../images/dog-2.jpg';
 import rect1 from '../images/rect-1.png';
@@ -16,6 +18,10 @@ const Wrapper = styled.div`
   display: flex;
   padding-top: 150px;
   align-items: flex-start;
+
+  ${bp.mobile} {
+    padding-top: 80px;
+  }
 `;
 
 const imagesStyle = css`

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FormGroup = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -15,6 +14,9 @@ const Input = styled.input`
   font-size: 26px;
   padding: 5px 0;
   box-sizing: border-box;
+  width: 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 
   &:focus {
     border-bottom: 1px solid rgba(256, 256, 256, 1);
