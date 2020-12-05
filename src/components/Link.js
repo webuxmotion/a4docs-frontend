@@ -4,14 +4,7 @@ import styled from 'styled-components';
 import { inject } from 'mobx-react';
 
 const LinkWrapper = styled.span`
-  color: white;
-  opacity: 0.5;
-  cursor: pointer;
-  border-bottom: 1px solid white;
-
-  &:hover {
-    opacity: 1;
-  }
+  
 `;
 
 @inject('routerStore')
@@ -24,7 +17,7 @@ class Link extends Component {
   render() {
 
     return (
-      <LinkWrapper onClick={() => this.goTo(this.props.to)}>{this.props.children}</LinkWrapper>
+      <LinkWrapper className={this.props.className} onClick={() => this.goTo(this.props.to)}>{this.props.children}</LinkWrapper>
     );
   }
 }

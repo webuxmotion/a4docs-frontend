@@ -11,6 +11,7 @@ import EditDocPage from './pages/edit-doc/EditDocPage';
 import LandingPage from './pages/landing/LandingPage';
 
 import Header from './components/Header';
+import Hot from './components/Hot';
 
 @inject('routerStore')
 @observer
@@ -18,7 +19,10 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Header />
+        <Hot />
+        <div style={{ position: 'relative' }}>
+          <Header />
+        </div>
 
         <Route exact path="/" component={LandingPage} />
         <Route path="/signin/" component={SignInPage} />
