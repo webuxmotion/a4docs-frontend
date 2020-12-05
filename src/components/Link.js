@@ -10,14 +10,19 @@ const LinkWrapper = styled.span`
 @inject('routerStore')
 class Link extends Component {
 
-  goTo = (link) => {
+  goTo = (link, event) => {
+
+    if (this.props.preRouter) {
+      this.props.preRouter(event);
+    }
+
     this.props.routerStore.push(link);
   };
 
   render() {
 
     return (
-      <LinkWrapper className={this.props.className} onClick={() => this.goTo(this.props.to)}>{this.props.children}</LinkWrapper>
+      <LinkWrapper className={this.props.className} onClick={(event) => this.goTo(this.props.to, event)}>{this.props.children}</LinkWrapper>
     );
   }
 }

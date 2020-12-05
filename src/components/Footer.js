@@ -8,14 +8,12 @@ import Button from './Button';
 import Title from './Title';
 import Menu from './Menu';
 
-import { ReactComponent as ArrowIcon } from '../icons/arrow-icon.svg';
-
 const Wrapper = styled.div`
   padding-top: 140px;
   padding-bottom: 20px;
   background: linear-gradient(245.17deg, #8486FF 29.42%, #4529F3 101.91%);
 
-  ${bp.mobile} {
+  ${bp.from2to1} {
     padding-top: 80px;
   }
 `;
@@ -25,7 +23,7 @@ const Top = styled.div`
   align-items: center;
   padding-bottom: 120px;
 
-  ${bp.mobile} {
+  ${bp.from2to1} {
     flex-direction: column;
     padding-bottom: 60px;
   }
@@ -41,7 +39,7 @@ const Cell = styled.div`
   display: flex;
   flex-grow: 1;
 
-  ${bp.mobile} {
+  ${bp.from2to1} {
     width: 100% !important;
     padding-bottom: 20px;
 
@@ -62,7 +60,7 @@ const Text = styled.p`
   span {
     white-space: nowrap;
 
-    ${bp.mobile} {
+    ${bp.from2to1} {
       white-space: break-spaces;
     }
   }
@@ -91,10 +89,9 @@ const Footer = inject('userStore')(observer(({ userStore: { username } }) => {
           </Cell>
           <Cell style={{ flexGrow: 0 }}>
             <Button
-              IconRight={!username ? ArrowIcon : null}
-              to={username ? '/docs' : '/signin'}
+              to={username ? '/docs' : '/signup'}
             >
-              {username ? 'Documents' : 'Login'}
+              {username ? 'Documents' : 'Sign Up'}
             </Button>
           </Cell>
         </Top>

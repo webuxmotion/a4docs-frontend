@@ -5,7 +5,6 @@ import About from '../../components/About';
 import Services from '../../components/Services';
 import Reviews from '../../components/Reviews';
 import Footer from '../../components/Footer';
-import Hot from '../../components/Hot';
 
 const LandingPage = () => (
   <div>

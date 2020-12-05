@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import imageFlame from '../images/flame.png';
@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   justify-content: center;
   background-color: ${colors.hotColor};
   align-items: stretch;
+  z-index: 40;
 `;
 
 const Content = styled(Link)`
@@ -55,17 +56,26 @@ const CloseIconWrapper = styled.div`
   }
 `;
 
-const Hot = () => (
-  <Wrapper>
-    <Content to="/hot">
-      <Text>HOT WINTER</Text>
-      <FlameIcon src={imageFlame} />
-      <Text>50% OFF</Text>
-    </Content>
-    <CloseIconWrapper>
-      <img alt="close button" src={imageClose} />
-    </CloseIconWrapper>
-  </Wrapper>
-);
+const Hot = () => {
+  const [visible, setVisible] = useState(!localStorage.getItem('hot-disable'));
+
+  const handleClick = () => {
+    localStorage.setItem('hot-disable', true);
+    setVisible(false);
+  }
+
+  return visible ? 
+    <Wrapper>
+      <Content to="/signup" preRouter={handleClick}>
+        <Text>HOT WINTER</Text>
+        <FlameIcon src={imageFlame} />
+        <Text>50% OFF</Text>
+      </Content>
+      <CloseIconWrapper onClick={handleClick}>
+        <img alt="close button" src={imageClose} />
+      </CloseIconWrapper>
+    </Wrapper> :
+    null
+};
 
 export default Hot;

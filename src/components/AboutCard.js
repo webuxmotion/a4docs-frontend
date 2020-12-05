@@ -30,8 +30,8 @@ const IconBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  background-color: #E9E5FF;
+  border-radius: 125px;
+  background-color: ${({ color }) => color};
   flex-shrink: 0;
 
   ${bp.mobile} {
@@ -56,11 +56,9 @@ const Text = styled.p`
   margin-top: 18px;
 `;
 
-const AboutCard = ({ Icon, title, text }) => (
+const AboutCard = ({ Icon, title, text, color }) => (
   <Wrapper>
-    <IconBox>
-      <Icon />
-    </IconBox>
+    <IconBox color={color}></IconBox>
     <Content>
       <Title>{title}</Title>
       <Text>{text}</Text>

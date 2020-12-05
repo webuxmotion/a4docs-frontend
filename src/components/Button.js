@@ -2,18 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 
+import colors from '../constants/styles-variables';
+
 const ButtonWrapper = styled.button`
   background-color: white;
-  border-radius: 100px;
+  border-radius: 10px;
   cursor: pointer;
   border: none;
-  height: 72px;
   min-width: 150px;
   color: #472BF3;
   font-size: 24px;
-  font-weight: bold;
-  padding-right: 48px;
-  padding-left: 48px;
+  font-weight: semi-bold;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-right: 40px;
+  padding-left: 40px;
   display: inline-flex;
   align-items: center;
 
@@ -23,8 +26,8 @@ const ButtonWrapper = styled.button`
 `;
 
 const ThemeSecondary = styled(ButtonWrapper)`
-  color: #472BF3;
-  background-color: #E9E5FF;
+  color: white;
+  background-color: ${colors.secondaryColor};
 
   &:hover {
     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.02);

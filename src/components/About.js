@@ -6,11 +6,6 @@ import Button from './Button';
 import Title from './Title';
 import AboutCard from './AboutCard';
 
-import { ReactComponent as About1 } from '../icons/about-1.svg';
-import { ReactComponent as About2 } from '../icons/about-2.svg';
-import { ReactComponent as About3 } from '../icons/about-3.svg';
-import { ReactComponent as About4 } from '../icons/about-4.svg';
-import { ReactComponent as ArrowIcon } from '../icons/arrow-icon.svg';
 import bp from '../constants/bp';
 
 const Wrapper = styled.div`
@@ -45,7 +40,7 @@ const Item = styled.div`
   width: 50%;
   box-sizing: border-box;
 
-  ${bp.mobile} {
+  ${bp.from2to1} {
     width: 100%;
   }
 `;
@@ -55,30 +50,45 @@ const Hero = inject('userStore')(observer(({ userStore: { username } }) => {
   return (
     <Wrapper>
       <div className="container">
-        <Title center theme="dark">Innovative documents</Title>
+        <Title center theme="dark">Platform features</Title>
 
         <Items>
           <Item>
-            <AboutCard Icon={About1} title="Unique dedign" text="We deliver 100% and provide instant response to help you succeed." />
+            <AboutCard 
+              color="#DDDBFE" 
+              title="Add doc. Login after" 
+              text="You can also add new docs, when you do not loggined"
+            />
           </Item>
           <Item>
-            <AboutCard Icon={About2} title="Digital branding & marketing" text="We deliver 100% and provide instant response to help you succeed." />
+            <AboutCard 
+              color="#FEDCDA"
+              title="Like list" 
+              text="You can like docs, and this liked docs will be saved in your like list"
+            />
           </Item>
           <Item>
-            <AboutCard Icon={About3} title="SEO & analytics" text="We deliver 100% and provide instant response to help you succeed." />
+            <AboutCard 
+              color="#FDE1B7"
+              title="Comment blocks" 
+              text="You can comment any block in your document and public docs"
+            />
           </Item>
           <Item>
-            <AboutCard Icon={About4} title="Digital branding & marketing" text="We deliver 100% and provide instant response to help you succeed." />
+            <AboutCard 
+              color="#D9D8F6"
+              title="Share docs"
+              text="You can make your docs private, public or shared by link"
+            />
           </Item>
         </Items>
 
         <ButtonWrapper>
           <Button
-            IconRight={!username ? ArrowIcon : null}
-            to={username ? '/docs' : '/signin'}
+            to={username ? '/docs' : '/signup'}
             theme="secondary"
           >
-            {username ? 'Documents' : 'Login now'}
+            {username ? 'Documents' : 'Sign Up'}
           </Button>
         </ButtonWrapper>
 

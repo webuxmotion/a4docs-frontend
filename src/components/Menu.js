@@ -153,9 +153,6 @@ class Menu extends Component {
             :
             <>
               <NavItem>
-                <NavLink href="/signup">Sign Up</NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink href="/signin">Login</NavLink>
               </NavItem>
             </>
