@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 import { inject } from 'mobx-react';
 
-const LinkWrapper = styled.span`
-  
-`;
+const LinkWrapper = styled.span``;
 
 @inject('routerStore')
 class Link extends Component {

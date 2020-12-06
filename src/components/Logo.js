@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LogoWrapper = styled.a`
-  color: white;
+import colors from '../constants/styles-variables';
+import Link from './Link';
+
+const LogoWrapper = styled(Link)`
+  color: ${colors.primaryColor};
   text-decoration: none;
   font-size: 24px;
   font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
 
   ${({ theme }) => {
     if (theme === 'primary') {
@@ -15,7 +20,7 @@ const LogoWrapper = styled.a`
 `;
 
 const Header = ({ children, center, theme }) => (
-  <LogoWrapper theme={theme} center={center} href="/">A4Docs</LogoWrapper>
+  <LogoWrapper theme={theme} center={center} to="/">A4Docs</LogoWrapper>
 );
 
 export default Header;
