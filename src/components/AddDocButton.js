@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import bp from '../constants/bp';
-import colors from '../constants/styles-variables';
+import { variables, bp } from '../constants';
 import Link from './Link';
 
 const LinkButton = styled(Link)`
@@ -19,7 +18,7 @@ const Icon = styled.span`
   border-radius: 60px;
   width: 60px;
   height: 60px;
-  background-color: ${colors.secondaryColor};
+  background-color: var(--color-secondary);
   position: relative;
 
   &:after, &:before {
@@ -27,7 +26,7 @@ const Icon = styled.span`
     display: block;
     width: 30px;
     height: 1px;
-    background-color: ${colors.primaryColor};
+    background-color: var(--color-primary);
   }
 
   &:before {
@@ -36,7 +35,7 @@ const Icon = styled.span`
 `;
 
 const Text = styled.span`
-  color: ${colors.primaryColor};
+  color: var(--color-primary);
   font-size: 16px;
   margin-right: 9px;
 `;

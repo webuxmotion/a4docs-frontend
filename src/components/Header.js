@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { inject, observer } from 'mobx-react';
 
-import bp from '../constants/bp';
-import colors from '../constants/styles-variables';
+import { variables, bp } from '../constants';
 import Menu from './Menu';
 import Logo from './Logo';
 import Link from './Link';
 import AddDocButton from './AddDocButton';
 
-const HeaderWrapper = styled.div`
-  
-`;
+const themes = ['primary', 'rebeccapurple', 'red', 'green'];
+
+const HeaderWrapper = styled.div``;
 
 const BodyWrapper = styled.div`
   position: absolute;
@@ -47,7 +47,7 @@ const LoginButton = styled(Link)`
   height: 100%;
   width: 100%;
   cursor: pointer;
-  background-color: ${colors.secondaryColor};
+  background-color: var(--color-secondary);
   font-size: 16px;
   position: relative;
 `;
@@ -62,7 +62,7 @@ const BurgerButton = styled.span`
   position: absolute;
   left: 100%;
   top: 0;
-  background-color: ${colors.primaryColor};
+  background-color: var(--color-primary);
 `;
 
 const BurgerIcon = styled.div`
@@ -81,23 +81,63 @@ const BurgerIcon = styled.div`
   }
 `;
 
-const Header = () => (
-  <HeaderWrapper>
-    <div className="container" style={{ position: 'relative' }}>
-      <BodyWrapper>
-        <Body>
-          <Logo />
-          <AddDocButton />
-        </Body>
-      </BodyWrapper>
+const SliderDots = styled.div`
+  height: 80px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+`;
+
+const SliderDot = styled.div`
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: ${({ active }) => active ? 'white' : 'var(--color-secondary)'};
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+`;
+
+let themeIndex = 1;
+
+const Header = inject('stateStore')(observer(({ stateStore }) => {
+
+  const handleChangeTheme = () => {
+    const theme = themes[themeIndex];
+    stateStore.setBodyClassName(theme);
+    themeIndex++;
+    if (themeIndex >= themes.length) {
+      themeIndex = 0;
+    }
+  }
+
+  return (
+    <div className="section">
+      <div className="container" style={{ position: 'relative' }}>
+        <BodyWrapper>
+          <Body>
+            <Logo />
+            <AddDocButton />
+          </Body>
+        </BodyWrapper>
+        <SliderDots>
+          <SliderDot active />
+          <SliderDot />
+          <SliderDot />
+        </SliderDots>
+      </div>
+      <LoginButtonWrapper>
+        <LoginButton to="/signin">Log In</LoginButton>
+        <BurgerButton onClick={handleChangeTheme}>
+          <BurgerIcon></BurgerIcon>
+        </BurgerButton>
+      </LoginButtonWrapper>
     </div>
-    <LoginButtonWrapper>
-      <LoginButton to="/signin">Log In</LoginButton>
-      <BurgerButton>
-        <BurgerIcon></BurgerIcon>
-      </BurgerButton>
-    </LoginButtonWrapper>
-  </HeaderWrapper>
-);
+  )
+}));
 
 export default Header;

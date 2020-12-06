@@ -1,18 +1,12 @@
 import React from 'react';
 
 import Hero from '../../components/Hero';
-import About from '../../components/About';
-import Services from '../../components/Services';
-import Reviews from '../../components/Reviews';
-import Footer from '../../components/Footer';
+import Features from '../../components/Features';
 
 const LandingPage = () => (
   <div>
     <Hero />
-    <About />
-    {/* <Services /> */}
-    {/* <Reviews /> */}
-    <Footer />
+    <Features />
   </div>
 );
 

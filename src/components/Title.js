@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import bp from '../constants/bp';
+import { bp, variables } from '../constants';
 
 const Header = styled.h2`
   width: 100%;
   text-align: ${props => props.center ? "center" : "left"};
   margin: 0;
-  color: ${props => props.theme === "dark" ? "black" : "white"};;
-  font-size: 40px;
+  color: ${props => props.theme === "light" ? "white" : 'var(--color-primary)'};
+  font-family: ${variables.fontSecondary};
+  font-size: 56px;
+  line-height: 60px;
 
   ${bp.mobile} {
     font-size: 30px;

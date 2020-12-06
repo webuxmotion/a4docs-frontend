@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 import imageFlame from '../images/flame.png';
 import imageClose from '../images/close-small.png';
-import bp from '../constants/bp';
-import colors from '../constants/styles-variables';
+import { variables, bp } from '../constants';
 import Link from './Link';
 
 const Wrapper = styled.div`
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${colors.hotColor};
+  background-color: ${variables.hotColor};
   align-items: stretch;
   z-index: 40;
 `;

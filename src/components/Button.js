@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 
-import colors from '../constants/styles-variables';
+import { variables } from '../constants';
 
 const ButtonWrapper = styled.button`
   background-color: white;
@@ -27,7 +27,7 @@ const ButtonWrapper = styled.button`
 
 const ThemeSecondary = styled(ButtonWrapper)`
   color: white;
-  background-color: ${colors.secondaryColor};
+  background-color: ${variables.secondaryColor};
 
   &:hover {
     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.02);

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import BodyClassName from 'react-body-classname';
 import { Route } from 'react-router';
 import { inject, observer } from 'mobx-react';
 
@@ -12,26 +13,32 @@ import LandingPage from './pages/landing/LandingPage';
 
 import Header from './components/Header';
 import Hot from './components/Hot';
+import GlobalStyle from './components/GlobalStyle';
 
-@inject('routerStore')
+@inject('routerStore', 'stateStore')
 @observer
 class App extends Component {
   render() {
-    return (
-      <Fragment>
-        <Hot />
-        <div style={{ position: 'relative' }}>
-          <Header />
-        </div>
+    const { bodyClassName } = this.props.stateStore.state;
 
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/signin/" component={SignInPage} />
-        <Route path="/signup/" component={SignUpPage} />
-        <Route exact path="/docs" component={DocsPage} />
-        <Route exact path="/docs/view/:id" component={ViewDocPage} />
-        <Route exact path="/docs/edit/:id" component={EditDocPage} />
-        <Route exact path="/docs/create" component={CreateDocPage} />
-      </Fragment>
+    return (
+      <BodyClassName className={bodyClassName ?? 'primary'}>
+        <Fragment>
+          <GlobalStyle />
+          {/* <Hot /> */}
+          <div style={{ position: 'relative' }}>
+            <Header />
+          </div>
+
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/signin/" component={SignInPage} />
+          <Route path="/signup/" component={SignUpPage} />
+          <Route exact path="/docs" component={DocsPage} />
+          <Route exact path="/docs/view/:id" component={ViewDocPage} />
+          <Route exact path="/docs/edit/:id" component={EditDocPage} />
+          <Route exact path="/docs/create" component={CreateDocPage} />
+        </Fragment>
+      </BodyClassName>
     );
   }
 }

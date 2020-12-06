@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import colors from '../constants/styles-variables';
+import { variables } from '../constants';
 import Link from './Link';
 
 const LogoWrapper = styled(Link)`
-  color: ${colors.primaryColor};
+  color: var(--color-primary);
   text-decoration: none;
   font-size: 24px;
   font-weight: bold;

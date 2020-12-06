@@ -5,12 +5,11 @@ import { createBrowserHistory } from 'history';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
 
-import './index.scss';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import UserStore from './stores/user.store';
 import AuthService from './services/auth.service';
 import DocsStore from './stores/docs.store';
+import StateStore from './stores/state.store';
 import DocsService from './services/docs.service';
 
 
@@ -26,6 +25,7 @@ services.authService = new AuthService();
 
 stores.docsStore = new DocsStore(services.docsService);
 stores.userStore = new UserStore(services.authService);
+stores.stateStore = new StateStore();
 
 const Root = (
   <Provider {...stores}>
@@ -35,8 +35,3 @@ const Root = (
   </Provider>
 );
 ReactDOM.render(Root, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
