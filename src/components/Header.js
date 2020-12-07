@@ -77,7 +77,9 @@ const ThemeCircle = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 40px;
-  background-color: ${({ color }) => color};
+  border: 5px solid;
+  border-color: ${({ color }) => color};
+  color: ${({ color }) => color};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,8 +90,9 @@ const ThemeCircle = styled.div`
   }
 
   span {
-    color: white;
     opacity: 0;
+    font-weight: bold;
+    font-family: ${variables.fontSecondary};
 
     ${({ bodyClassName, colorName }) => {
       if (!bodyClassName) bodyClassName = 'primary';
@@ -214,13 +217,19 @@ const Header = observer(({ stores }) => {
               color="#2F6E75"
               colorName='green'
               bodyClassName={bodyClassName}
-            ><span>B</span></ThemeCircle>
+            ><span>A</span></ThemeCircle>
             <ThemeCircle 
               onClick={() => handleChangeTheme('rebeccapurple')}
               color="#663399"
               colorName='rebeccapurple'
               bodyClassName={bodyClassName}
-            ><span>C</span></ThemeCircle>
+            ><span>A</span></ThemeCircle>
+            <ThemeCircle 
+              onClick={() => handleChangeTheme('black')}
+              color="#313131"
+              colorName='black'
+              bodyClassName={bodyClassName}
+            ><span>A</span></ThemeCircle>
           </ThemeList>
         </NavigationList>
       </LoginButtonWrapper>

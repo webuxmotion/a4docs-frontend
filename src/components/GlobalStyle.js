@@ -31,6 +31,11 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #00DB78;
   }
 
+  body.black {
+    --color-primary: #313131;
+    --color-secondary: #949494;
+  }
+
   a {
     color: black;
   }
@@ -53,13 +58,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .container {
-    max-width: 1200px;
     margin: 0 auto;
   }
 
   .section {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 10%;
+    padding-left: 10%;
   }
 `;
  
