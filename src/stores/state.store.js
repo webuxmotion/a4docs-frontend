@@ -1,15 +1,19 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 
 export default class UserStore {
-  @observable state = {
+  state = {
     bodyClassName: null
   };
 
   constructor() {
+    makeObservable(this, {
+      state: observable,
+      setBodyClassName: action,
+    });
+
     this.state.bodyClassName = localStorage.getItem('bodyClassName');
   }
 
-  @action
   setBodyClassName(value) {
     localStorage.setItem('bodyClassName', value);
     this.state.bodyClassName = value;

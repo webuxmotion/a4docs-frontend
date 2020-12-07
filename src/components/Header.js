@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import { variables, bp } from '../constants';
-import Menu from './Menu';
 import Logo from './Logo';
 import Link from './Link';
 import AddDocButton from './AddDocButton';
-
-const themes = ['primary', 'rebeccapurple', 'red', 'green'];
-
-const HeaderWrapper = styled.div``;
 
 const BodyWrapper = styled.div`
   position: absolute;
@@ -52,6 +47,62 @@ const LoginButton = styled(Link)`
   position: relative;
 `;
 
+const NavigationList = styled.div`
+  background-color: white;
+  width: 300px;
+  height: 400px;
+  left: 100%;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  ${({ active }) => active && `
+    opacity: 1;
+    pointer-events: all;
+  `}
+`;
+
+const ThemeListTitle = styled.p`
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 20px;
+`;
+
+const ThemeList = styled.div`
+  display: flex;
+  padding: 20px;
+`;
+
+const ThemeCircle = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: ${({ color }) => color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  span {
+    color: white;
+    opacity: 0;
+
+    ${({ bodyClassName, colorName }) => {
+      if (!bodyClassName) bodyClassName = 'primary';
+      
+      if (bodyClassName === colorName) {
+        return `
+          opacity: 1;
+        `
+      }
+    }}
+  }
+`;
+
 const BurgerButton = styled.span`
   display: flex;
   align-items: center;
@@ -63,10 +114,28 @@ const BurgerButton = styled.span`
   left: 100%;
   top: 0;
   background-color: var(--color-primary);
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+  }
+
+  ${({ active }) => active && `
+    &:after {
+      opacity: 1;
+    }
+  `}
 `;
 
 const BurgerIcon = styled.div`
   position: relative;
+  z-index: 1;
 
   &:after, &:before {
     content: '';
@@ -102,18 +171,14 @@ const SliderDot = styled.div`
   }
 `;
 
-let themeIndex = 1;
+const Header = observer(({ stores }) => {
+  const [activeMenu, setActiveMenu] = useState(false);
 
-const Header = inject('stateStore')(observer(({ stateStore }) => {
-
-  const handleChangeTheme = () => {
-    const theme = themes[themeIndex];
-    stateStore.setBodyClassName(theme);
-    themeIndex++;
-    if (themeIndex >= themes.length) {
-      themeIndex = 0;
-    }
+  const handleChangeTheme = (theme) => {
+    stores.stateStore.setBodyClassName(theme);
   }
+
+  const { bodyClassName } = stores.stateStore.state;
 
   return (
     <div className="section">
@@ -132,12 +197,35 @@ const Header = inject('stateStore')(observer(({ stateStore }) => {
       </div>
       <LoginButtonWrapper>
         <LoginButton to="/signin">Log In</LoginButton>
-        <BurgerButton onClick={handleChangeTheme}>
+        <BurgerButton active={activeMenu} onClick={() => setActiveMenu(!activeMenu)}>
           <BurgerIcon></BurgerIcon>
         </BurgerButton>
+        <NavigationList active={activeMenu}>
+          <ThemeListTitle>Active Theme</ThemeListTitle>
+          <ThemeList>
+            <ThemeCircle 
+              onClick={() => handleChangeTheme('primary')}
+              color={variables.primaryColor}
+              colorName='primary'
+              bodyClassName={bodyClassName}
+            ><span>A</span></ThemeCircle>
+            <ThemeCircle 
+              onClick={() => handleChangeTheme('green')}
+              color="#2F6E75"
+              colorName='green'
+              bodyClassName={bodyClassName}
+            ><span>B</span></ThemeCircle>
+            <ThemeCircle 
+              onClick={() => handleChangeTheme('rebeccapurple')}
+              color="#663399"
+              colorName='rebeccapurple'
+              bodyClassName={bodyClassName}
+            ><span>C</span></ThemeCircle>
+          </ThemeList>
+        </NavigationList>
       </LoginButtonWrapper>
     </div>
   )
-}));
+});
 
 export default Header;

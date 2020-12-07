@@ -30,7 +30,7 @@ stores.stateStore = new StateStore();
 const Root = (
   <Provider {...stores}>
     <Router history={history}>
-      <App />
+      <App stores={stores} />
     </Router>
   </Provider>
 );

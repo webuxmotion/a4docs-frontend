@@ -26,11 +26,6 @@ const GlobalStyle = createGlobalStyle`
     --color-secondary: #6CE535;
   }
 
-  body.red {
-    --color-primary: #F00F00;
-    --color-secondary: #18F0EB;
-  }
-
   body.green {
     --color-primary: #2F6E75;
     --color-secondary: #00DB78;
