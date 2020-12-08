@@ -4,12 +4,29 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(180deg, #8486FF 0%, #543FF6 100%);
+`;
+
+const Content = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const Bg = styled.div`
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  background-color: var(--color-primary);
+  opacity: 0.1;
 `;
 
 const FullscreenWrapper = ({ children }) => (
   <Wrapper>
-    {children}
+    <Content>
+      {children}
+    </Content>
+    <Bg />
   </Wrapper>
 );
 

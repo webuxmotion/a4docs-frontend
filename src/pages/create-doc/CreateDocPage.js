@@ -7,22 +7,59 @@ import FullscreenWrapper from '../../components/FullscreenWrapper';
 import DocLayout from '../../components/DocLayout';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
+import { variables } from '../../constants';
 
-const TitleFieldWrapper = styled.div`
-  padding-left: 35px;
-  padding-bottom: 30px;
-  width: 390px;
+const Header = styled.div`
+  height: 80px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
-const ButtonWrapper = styled.div`
-  padding-top: 35px;
+const Title = styled.h1`
+  font-family: ${variables.fontSecondary};
+  line-height: 36px;
+  font-size: 48px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 `;
 
-const FormWrapper = styled.div`
-  padding-left: 35px;
-  padding-right: 35px;
-  padding-top: 35px;
-  width: 390px;
+const SaveButton = styled.div`
+  width: 200px;
+  height: 80px;
+  display: flex;
+  margin-left: -400px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-secondary);
+  cursor: pointer;
+  font-size: 16px;
+`;
+
+const Section = styled.div`
+  padding-top: 80px;
+`;
+
+const DocPaper = styled.div`
+  width: 67.4%;
+  height: 1000px;
+  background-color: white;
+  padding-top: 60px;
+  padding-left: 50px;
+  color: black;
+`;
+
+const EditableTitle = styled.h2`
+  font-size: 36px;
+  line-height: 45px;
+  display: inline-block;
+  outline: none;
+`;
+
+const EditableContent = styled.p`
+  display: inline-block;
+  outline: none;
 `;
 
 @inject('docsStore', 'routerStore')
@@ -59,40 +96,20 @@ class CreateDocPage extends Component {
   render() {
     return (
       <FullscreenWrapper>
-        <form onSubmit={this.submit}>
-        <DocLayout
-          paperTheme="color"
-          title={(
-            <TitleFieldWrapper>
-              <FormField
-                id="title"
-                label="title"
-                onChange={e => this.setState({ title: e.target.value })}
-              />
-            </TitleFieldWrapper>
-          )}
-          backButtonClickHandler={() => this.props.routerStore.push('/docs')}
-          pageTitle="Create docu ment"
-        >
-          <FormWrapper>
-            <FormField
-              id="content"
-              label="content"
-              onChange={e => this.setState({ content: e.target.value })}
-            />
-
-            {this.state.errorMessage && <ErrorMessage message={this.state.errorMessage} />}
-
-            <ButtonWrapper>
-              <Button
-                type="submit"
-              >
-                Save
-              </Button>
-            </ButtonWrapper>
-          </FormWrapper>
-        </DocLayout>
-        </form>
+        <Section className="section">
+          <Header>
+            <Title>Create</Title>
+            <SaveButton>Save</SaveButton>
+          </Header>
+          <DocPaper>
+            <div>
+              <EditableTitle contentEditable="true">Title</EditableTitle>
+            </div>
+            <div style={{ paddingTop: "20px" }}>
+              <EditableContent contentEditable="true">Content</EditableContent>
+            </div>
+          </DocPaper>
+        </Section>
       </FullscreenWrapper>
     );
   }

@@ -14,6 +14,7 @@ import LandingPage from './pages/landing/LandingPage';
 import Header from './components/Header';
 import Hot from './components/Hot';
 import GlobalStyle from './components/GlobalStyle';
+import Footer from './components/Footer';
 
 const App = observer(({ stores }) => {
   const { bodyClassName } = stores.stateStore.state;
@@ -23,7 +24,7 @@ const App = observer(({ stores }) => {
       <Fragment>
         <GlobalStyle />
         {/* <Hot /> */}
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', zIndex: 10 }}>
           <Header stores={stores} />
         </div>
 
@@ -33,7 +34,9 @@ const App = observer(({ stores }) => {
         <Route exact path="/docs" component={DocsPage} />
         <Route exact path="/docs/view/:id" component={ViewDocPage} />
         <Route exact path="/docs/edit/:id" component={EditDocPage} />
-        <Route exact path="/docs/create" component={CreateDocPage} />
+        <Route exact path="/add-doc" component={CreateDocPage} />
+
+        <Footer />
       </Fragment>
     </BodyClassName>
   );

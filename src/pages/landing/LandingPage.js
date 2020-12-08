@@ -12,7 +12,6 @@ const LandingPage = () => (
     <Features />
     <PublicDocs />
     <Reviews />
-    <Footer />
   </div>
 );
 
