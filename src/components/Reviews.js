@@ -1,83 +1,59 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Title from './Title';
-import ReviewCard from './ReviewCard';
-
-import avatar1 from '../images/reviews/review-1.jpg';
-import avatar2 from '../images/reviews/review-2.jpg';
-import avatar3 from '../images/reviews/review-3.jpg';
+import { ReactComponent as QuotesSvg } from '../images/quotes.svg';
 
 const Wrapper = styled.div`
-  padding-top: 120px;
-  background-color: white;
+  padding-top: 60px;
+  padding-bottom: 210px;
 `;
 
-const TitleWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
+const QuotesSvgElement = styled(QuotesSvg)`
+  opacity: 0.1;
 `;
 
-const FirstCard = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 90px;
-  padding-top: 30px;
-  padding-bottom: 60px;
+const List = styled.div`
+  margin-top: 70px;
 `;
 
-const SecondCard = styled.div`
-  display: flex;
-  padding-bottom: 110px;
-  padding-left: 50px;
+const Item = styled.div`
+  
 `;
 
-const ThirdCard = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: -50px;
-`;
-
-const Items = styled.div`
+const TextWrapper = styled.div`
+  width: 50%;
+  padding-right: 10px;
   position: relative;
+`;
+
+const Text = styled.p`
+  font-size: 42px;
+  line-height: 50px;
+  font-weight: bold;
+`;
+
+const Author = styled.span`
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 100%;
+  margin-top: -27px;
 `;
 
 const Reviews = () => {
 
   return (
-    <Wrapper>
+    <Wrapper className="section">
       <div className="container">
-        <Items>
-          <TitleWrapper>
-            <Title theme="dark">Reviews</Title>
-          </TitleWrapper>
-          <FirstCard>
-            <ReviewCard 
-              avatarImage={avatar1}
-              message="We deliver 100% and provide instant response to help you succeed."
-              name="Andrii Pereverziev"
-              position="Business Consultant @ Google"
-            />
-          </FirstCard>
-          <SecondCard>
-            <ReviewCard 
-              avatarImage={avatar2}
-              message="We deliver 100% and provide instant response to help you succeed."
-              name="Andrii Pereverziev"
-              position="Business Consultant @ Google"
-            />
-          </SecondCard>
-          <ThirdCard>
-            <ReviewCard 
-              avatarImage={avatar3}
-              message="We deliver 100% and provide instant response to help you succeed."
-              name="Andrii Pereverziev"
-              position="Business Consultant @ Google"
-            />
-          </ThirdCard>
-        </Items>
+        <QuotesSvgElement />
+        <List>
+          <Item>
+            <TextWrapper>
+              <Text>We deliver 100% and provide instant response to help you succeed.</Text>
+              <Author>Ann Batlers, <br/>Content Manager at LALAJS</Author>
+            </TextWrapper>
+          </Item>
+        </List>
       </div>
     </Wrapper>
   )

@@ -10,6 +10,7 @@ import { ReactComponent as CircleDotsIcon } from '../images/hero-text.svg';
 const Wrapper = styled.div`
   background-color: var(--color-primary);
   overflow: hidden;
+  padding-right: 0 !important;
 `;
 
 const Container = styled.div`
@@ -33,36 +34,12 @@ const CellWithText = styled(Cell)`
 `;
 
 const CellWithImage = styled(Cell)`
-  width: 50%;
+  width: 61.5%;
   padding-top: 80px;
   padding-left: 100px;
 
   img {
     width: 100%;
-  }
-`;
-
-const ImagePlaceholder = styled.div`
-  width: 100%;
-  padding-bottom: 100%;
-  position: relative;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 1500px;
-    background-color: #c6bed2;
-  }
-
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: auto;
   }
 `;
 
@@ -73,7 +50,7 @@ const BottomContainer = styled.div`
   box-sizing: border-box;
 
   span {
-    margin-left: 50%;
+    margin-left: 44.5%;
     display: inline-block;
     max-width: 290px;
   }
@@ -88,9 +65,7 @@ const Hero = inject('routerStore', 'userStore')(observer(({ routerStore, userSto
           <CircleDotsIcon />
         </CellWithText>
         <CellWithImage>
-          <ImagePlaceholder>
-            <img src={heroImage} alt="Documents hero slider" />
-          </ImagePlaceholder>
+          <img src={heroImage} alt="Documents hero slider" />
         </CellWithImage>
       </Container>
       <BottomContainer className="container">

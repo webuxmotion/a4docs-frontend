@@ -1,106 +1,68 @@
 import React from 'react';
 import styled from 'styled-components';
-import { inject, observer } from 'mobx-react';
-
-import bp from '../constants/bp';
-
-import Button from './Button';
-import Title from './Title';
-import Menu from './Menu';
+import { variables } from '../constants';
 
 const Wrapper = styled.div`
-  padding-top: 140px;
-  padding-bottom: 20px;
-  background: linear-gradient(245.17deg, #8486FF 29.42%, #4529F3 101.91%);
-
-  ${bp.from2to1} {
-    padding-top: 80px;
-  }
+  padding-top: 60px;
+  background: var(--color-primary);
 `;
 
 const Top = styled.div`
   display: flex;
-  align-items: center;
-  padding-bottom: 120px;
+  color: white;
+`;
 
-  ${bp.from2to1} {
-    flex-direction: column;
-    padding-bottom: 60px;
-  }
+const TopCell = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Title = styled.div`
+  font-weight: bold;
+  font-size: 32px;
+  color: white;
 `;
 
 const Bottom = styled.div`
-  border-top: 1px solid rgba(256, 256, 256, 0.2);
-  padding-top: 30px;
-  padding-bottom: 10px;
-`;
-
-const Cell = styled.div`
+  color: var(--color-secondary);
   display: flex;
-  flex-grow: 1;
-
-  ${bp.from2to1} {
-    width: 100% !important;
-    padding-bottom: 20px;
-
-    &:last-child {
-      padding-top: 20px;
-    }
-  }
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 120px;
+  overflow: hidden;
 `;
 
-const Text = styled.p`
-  color: #F2F2F2;
-  font-size: 20px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  line-height: 30px;
-
-  span {
-    white-space: nowrap;
-
-    ${bp.from2to1} {
-      white-space: break-spaces;
-    }
-  }
+const ShortLogo = styled.h3`
+  font-size: 56px;
+  line-height: 60px;
+  font-family: ${variables.fontSecondary};
+  margin-bottom: -10px;
 `;
 
-const Footer = inject('userStore')(observer(({ userStore: { username } }) => {
+const Copyright = styled.span`
+  font-size: 16px;
+`;
+
+const Footer = () => {
 
   return (
-    <Wrapper>
-      <div className="container">
-        <Top>
-          <Cell style={{ width: '20%' }}>
-            <Title>Have a question?</Title>
-          </Cell>
-          <Cell style={{ paddingRight: '20px' }}>
-            <Text>
-              <span>A4DOCS, INC</span>
-              <span>Kyiv, Ukraine</span>
-            </Text>
-          </Cell>
-          <Cell style={{ paddingRight: '20px' }}>
-            <Text>
-              <span>Email: pereverziev.andrii@gmail.com</span>
-              <span>Phone: +38 (095) 134 33 38</span>
-            </Text>
-          </Cell>
-          <Cell style={{ flexGrow: 0 }}>
-            <Button
-              to={username ? '/docs' : '/signup'}
-            >
-              {username ? 'Documents' : 'Sign Up'}
-            </Button>
-          </Cell>
-        </Top>
-        <Bottom>
-          <Menu />
-        </Bottom>
-      </div>
+    <Wrapper className="section">
+      <Top>
+        <TopCell>
+          <Title>Contacts</Title>
+        </TopCell>
+        <TopCell>
+          <span>hello@gmail.com</span>
+          <span>+38 095 123 45 67</span>
+        </TopCell>
+      </Top>
+      <Bottom>
+        <ShortLogo>A4D</ShortLogo>
+        <Copyright>© A4Docs</Copyright>
+      </Bottom>
     </Wrapper>
   )
-}));
+};
 
 export default Footer;
