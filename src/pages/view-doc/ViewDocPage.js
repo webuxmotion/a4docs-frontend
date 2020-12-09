@@ -1,119 +1,97 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from "react-router";
 import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
+import ContentEditable from "react-contenteditable";
 
-import DocDropdown from '../../components/DocDropdown';
-import DocLayout from '../../components/DocLayout';
+import { ReactComponent as EditIconSvg } from '../../icons/edit-icon.svg';
+import FullscreenWrapper from '../../components/FullscreenWrapper';
 
-const HeroBackground = styled.div`
-  position: absolute;
-  height: 500px;
-  left: 0px;
-  top: 0px;
-  right: 0;
-  z-index: 1;
-  background: linear-gradient(267.52deg, #8385FF 47.93%, #5642F6 102.26%);
-`;
+import { variables } from '../../constants';
 
-const Actions = styled.div`
-  position: absolute;
-  left: 30px;
+const Header = styled.div`
+  height: 80px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
 const Title = styled.h1`
-  color: white;
-  font-size: 36px;
-  font-weight: 300;
+  font-family: ${variables.fontSecondary};
   line-height: 36px;
-  margin-bottom: 30px;
-  padding: 0 40px;
-`;
-
-const ContentText = styled.p`
+  font-size: 48px;
   position: absolute;
-  top: 50px;
-  left: 40px;
-  right: 40px;
-  font-size: 24px;
-  margin: 0;
+  bottom: 0;
+  left: 0;
 `;
 
-const EmptyDocsPlaceholder = styled.p`
-  color: #edf4ff;
-  text-align: center;
-  font-size: 22px;
+const Section = styled.div`
+  padding-top: 80px;
 `;
 
-const Content = styled.div`
+const DocPaper = styled.div`
+  width: 67.4%;
+  height: 1000px;
+  background-color: white;
+  padding-top: 60px;
+  padding-left: 50px;
+  color: black;
   position: relative;
-  padding-bottom: 100px;
-  z-index: 20;
 `;
 
-@inject('docsStore', 'routerStore')
-@observer
-class DocsPage extends Component {
-  componentDidMount() {
-    const { match: { params: { id } } } = this.props;
-    
-    this.props.docsStore.fetchDoc(id);
-  }
+const EditableTitle = styled(ContentEditable)`
+  font-size: 36px;
+  line-height: 45px;
+  display: inline-block;
+  outline: none;
+`;
 
-  deleteDoc = () => {
-    const { match: { params: { id } } } = this.props;
-    this.props.docsStore.deleteDoc(id);
-  };
+const EditableContent = styled(ContentEditable)`
+  display: inline-block;
+  outline: none;
+`;
 
-  handleSetPersonal = (value) => {
-    const { match: { params: { id } } } = this.props;
+const EditIcon = styled(EditIconSvg)`
+  position: absolute;
+  top: 10px;
+  right: 33px;
+  cursor: pointer;
+`;
 
-    this.props.docsStore.updateDocPersonal(id, value);
-  };
+const CreateDocPage = inject('stateStore', 'routerStore')(observer(({ stateStore, routerStore, match }) => {
+  const alias = match.params.id;
+  const localDocs = JSON.parse(stateStore.state.localDocs);
+  
+  const { title, content } = localDocs[alias] || {};
+  
+  return (
+    <FullscreenWrapper>
+      <Section className="section">
+        <Header>
+          <Title>View</Title>
+        </Header>
+        { title || content ? (
+          <DocPaper>
+            <div>
+              <EditableTitle
+                html={title}
+                disabled={true}
+              />
+            </div>
+            <div style={{ marginTop: '20px'}}>
+              <EditableContent
+                html={content}
+                disabled={true}
+              />
+            </div>
+            <EditIcon onClick={() => routerStore.push(`/list/${alias}/edit`)} />
+          </DocPaper>
+          ) :
+          <span>Doc not found</span>
+        }
+      </Section>
+    </FullscreenWrapper>
+  );
+}));
 
-  renderDoc = () => {
-    const { docsStore } = this.props;
-
-    if (!docsStore.doc) {
-      return <EmptyDocsPlaceholder>We can't find the doc. <a href="/docs">See all docs</a></EmptyDocsPlaceholder>
-    }
-
-    const { id, title, content, personal } = docsStore.doc;
-
-    return (
-      <>
-        <DocLayout 
-          title={<Title>{title}</Title>}
-          backButtonClickHandler={() => this.props.routerStore.push('/docs')}
-          personal={personal}
-          rightSideContent={
-            (
-              <Actions>
-                <DocDropdown
-                  id={id}
-                  personal={personal}
-                  handleSetPersonal={this.handleSetPersonal}
-                  handleDelete={this.deleteDoc}
-                />
-              </Actions>
-            )
-          }
-        >
-          <ContentText>{content}</ContentText>
-        </DocLayout>
-      </>
-    )
-  };
-
-  render() {
-    return (
-      <div>
-        <HeroBackground />
-        <Content>
-          {this.renderDoc()}
-        </Content>
-      </div>
-    );
-  }
-}
-
-export default DocsPage;
+export default withRouter(CreateDocPage);

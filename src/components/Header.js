@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 
-import { variables, bp } from '../constants';
+import { variables } from '../constants';
 import Logo from './Logo';
 import Link from './Link';
 import AddDocButton from './AddDocButton';
@@ -55,6 +55,7 @@ const NavigationList = styled.div`
   position: absolute;
   opacity: 0;
   pointer-events: none;
+  padding: 20px;
 
   ${({ active }) => active && `
     opacity: 1;
@@ -62,15 +63,36 @@ const NavigationList = styled.div`
   `}
 `;
 
+const LinkButton = styled(Link)`
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    left: 0;
+    height: 10px;
+    background-color: var(--color-secondary);
+  }
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+`;
+
 const ThemeListTitle = styled.p`
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 20px;
+
 `;
 
 const ThemeList = styled.div`
   display: flex;
-  padding: 20px;
 `;
 
 const ThemeCircle = styled.div`
@@ -153,6 +175,15 @@ const BurgerIcon = styled.div`
   }
 `;
 
+const DocsCounter = styled.div`
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  top: 14px;
+  left: 68px;
+  z-index: 2;
+`;
+
 const SliderDots = styled.div`
   height: 80px;
   position: absolute;
@@ -176,12 +207,15 @@ const SliderDot = styled.div`
 
 const Header = observer(({ stores }) => {
   const [activeMenu, setActiveMenu] = useState(false);
+  const { stateStore } = stores;
 
   const handleChangeTheme = (theme) => {
-    stores.stateStore.setBodyClassName(theme);
+    stateStore.setBodyClassName(theme);
   }
 
-  const { bodyClassName } = stores.stateStore.state;
+  const { bodyClassName, localDocs } = stateStore.state;
+  const localDocsObj = JSON.parse(localDocs);
+  const localDocsLength = Object.keys(localDocsObj).length;
 
   return (
     <div className="section">
@@ -202,8 +236,10 @@ const Header = observer(({ stores }) => {
         <LoginButton to="/signin">Log In</LoginButton>
         <BurgerButton active={activeMenu} onClick={() => setActiveMenu(!activeMenu)}>
           <BurgerIcon></BurgerIcon>
+          { localDocsLength && <DocsCounter>{localDocsLength}</DocsCounter> }
         </BurgerButton>
         <NavigationList active={activeMenu}>
+          <LinkButton to="/list"><span>Local docs ({localDocsLength})</span></LinkButton>
           <ThemeListTitle>Active Theme</ThemeListTitle>
           <ThemeList>
             <ThemeCircle 

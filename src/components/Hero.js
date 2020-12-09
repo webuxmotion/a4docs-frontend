@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 
-import { variables, bp } from '../constants'
 import heroImage from '../images/hero-image.png';
 
 import { ReactComponent as CircleDotsIcon } from '../images/hero-text.svg';

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { bp, variables } from '../constants';
 import DocPreview from './DocPreview';
 import Link from './Link';
 import Title from './Title';
@@ -27,7 +26,7 @@ const ArrowWrapper = styled.div`
   align-items: center;
   cursor: pointer;
   
-  ${({ left }) => left && `
+  ${({ leftarrow }) => leftarrow && `
     margin-right: 50px;
   `}
 
@@ -37,7 +36,7 @@ const ArrowWrapper = styled.div`
 `;
 
 const ArrowIcon = styled(ArrowIconSvg)`
-  ${({ left }) => left && `
+  ${({ leftarrow }) => leftarrow && `
     transform: rotate(-180deg);
     position: relative;
     top: -1px;
@@ -120,8 +119,8 @@ const PublicDocs = () => (
         <Description>Create documents, make them public and enjoy likes, comments and thanks</Description>
         <LinkButton to="/public-docs"><span>See public docs</span></LinkButton>
         <ArrowList>
-          <ArrowWrapper left>
-            <ArrowIcon left />
+          <ArrowWrapper leftarrow="true">
+            <ArrowIcon leftarrow="true" />
           </ArrowWrapper>
           <ArrowWrapper>
             <ArrowIcon />

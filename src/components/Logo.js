@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { variables } from '../constants';
 import Link from './Link';
 
 const LogoWrapper = styled(Link)`

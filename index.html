@@ -12,6 +12,7 @@ function initDoc() {
 }
 
 function formatDoc(sCmd, sValue) {
+  console.log(sCmd, sValue);
   if (validateMode()) { document.execCommand(sCmd, false, sValue); oDoc.focus(); }
 }
 
@@ -24,6 +25,7 @@ function validateMode() {
 
 function setDocMode(bToSource) {
   var oContent;
+  
   if (bToSource) {
     oContent = document.createTextNode(oDoc.innerHTML);
     oDoc.innerHTML = "";

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { variables, bp } from '../constants';
 import Link from './Link';
 
 const LinkButton = styled(Link)`

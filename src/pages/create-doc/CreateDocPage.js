@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
-import { inject } from 'mobx-react';
+import ContentEditable from "react-contenteditable";
 
-import ErrorMessage from '../../components/ErrorMessage';
 import FullscreenWrapper from '../../components/FullscreenWrapper';
-import DocLayout from '../../components/DocLayout';
-import FormField from '../../components/FormField';
-import Button from '../../components/Button';
+
 import { variables } from '../../constants';
 
 const Header = styled.div`
@@ -50,69 +48,59 @@ const DocPaper = styled.div`
   color: black;
 `;
 
-const EditableTitle = styled.h2`
+const EditableTitle = styled(ContentEditable)`
   font-size: 36px;
   line-height: 45px;
   display: inline-block;
   outline: none;
 `;
 
-const EditableContent = styled.p`
+const EditableContent = styled(ContentEditable)`
   display: inline-block;
   outline: none;
 `;
 
-@inject('docsStore', 'routerStore')
-class CreateDocPage extends Component {
-  constructor(props) {
-    super(props);
+const CreateDocPage = inject('stateStore', 'routerStore')(observer(({ stateStore, routerStore }) => {
+  const [content, setContent] = useState("Content");
+  const [title, setTitle] = useState("Title");
 
-    this.state = {
-      title: '',
-      content: '',
-      errorMessage: null,
-    };
-  }
-
-  handleSubmitDoc = async () => {
-    const { docsStore, routerStore } = this.props;
-    const { title, content } = this.state;
-
-    try {
-      await docsStore.createDoc(title, content);
-      routerStore.push('/docs');
-    } catch (error) {
-      const errorMessage = error.response.data.message;
-      this.setState({ errorMessage });
-    }
+  const handleChange = (evt, cb) => {
+    cb(evt.target.value);
   };
 
-  submit = (e) => {
-    e.preventDefault();
-    
-    this.handleSubmitDoc();
-  };
+  const handleSave = () => {
+    const addedDoc = stateStore.addDoc({ title, content });
 
-  render() {
-    return (
-      <FullscreenWrapper>
-        <Section className="section">
-          <Header>
-            <Title>Create</Title>
-            <SaveButton>Save</SaveButton>
-          </Header>
-          <DocPaper>
-            <div>
-              <EditableTitle contentEditable="true">Title</EditableTitle>
-            </div>
-            <div style={{ paddingTop: "20px" }}>
-              <EditableContent contentEditable="true">Content</EditableContent>
-            </div>
-          </DocPaper>
-        </Section>
-      </FullscreenWrapper>
-    );
+    console.log(addedDoc);
+    routerStore.push(`/list/${addedDoc.alias}`);
   }
-}
+  
+  return (
+    <FullscreenWrapper>
+      <Section className="section">
+        <Header>
+          <Title>Create</Title>
+          <SaveButton onClick={handleSave}>Save</SaveButton>
+        </Header>
+        <DocPaper>
+          <div>
+            <EditableTitle
+              html={title}
+              disabled={false}
+              onChange={(event) => handleChange(event, setTitle)}
+            />
+          </div>
+          <div style={{ marginTop: '20px'}}>
+            <EditableContent
+              html={content}
+              disabled={false}
+              onChange={(event) => handleChange(event, setContent)}
+            />
+          </div>
+        </DocPaper>
+      </Section>
+    </FullscreenWrapper>
+  );
+}));
 
 export default CreateDocPage;

@@ -1,121 +1,110 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { withRouter } from "react-router";
 import { inject, observer } from 'mobx-react';
+import styled from 'styled-components';
+import ContentEditable from "react-contenteditable";
 
-import ErrorMessage from '../../components/ErrorMessage';
 import FullscreenWrapper from '../../components/FullscreenWrapper';
-import DocLayout from '../../components/DocLayout';
-import FormField from '../../components/FormField';
-import Button from '../../components/Button';
 
-const TitleFieldWrapper = styled.div`
-  padding-left: 35px;
-  padding-bottom: 30px;
-  width: 390px;
+import { variables } from '../../constants';
+
+const Header = styled.div`
+  height: 80px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
-const ButtonWrapper = styled.div`
-  padding-top: 35px;
+const Title = styled.h1`
+  font-family: ${variables.fontSecondary};
+  line-height: 36px;
+  font-size: 48px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 `;
 
-const FormWrapper = styled.div`
-  padding-left: 35px;
-  padding-right: 35px;
-  padding-top: 35px;
-  width: 390px;
+const SaveButton = styled.div`
+  width: 200px;
+  height: 80px;
+  display: flex;
+  margin-left: -400px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-secondary);
+  cursor: pointer;
+  font-size: 16px;
 `;
 
-@inject('docsStore', 'routerStore')
-@observer
-class EditDocPage extends Component {
-  constructor(props) {
-    super(props);
+const Section = styled.div`
+  padding-top: 80px;
+`;
 
-    this.state = {
-      id: null,
-      title: '',
-      content: '',
-      errorMessage: null,
-    };
-  }
+const DocPaper = styled.div`
+  width: 67.4%;
+  height: 1000px;
+  background-color: white;
+  padding-top: 60px;
+  padding-left: 50px;
+  color: black;
+  position: relative;
+`;
 
-  async componentDidMount() {
-    const { match: { params: { id } } } = this.props;
-    
-    await this.props.docsStore.fetchDoc(id);
+const EditableTitle = styled(ContentEditable)`
+  font-size: 36px;
+  line-height: 45px;
+  display: inline-block;
+  outline: none;
+`;
 
-    const doc = this.props.docsStore.doc;
+const EditableContent = styled(ContentEditable)`
+  display: inline-block;
+  outline: none;
+`;
 
-    this.setState({
-      title: doc.title,
-      content: doc.content,
-      id: doc.id
-    });
-  }
+const CreateDocPage = inject('stateStore', 'routerStore')(observer(({ stateStore, routerStore, match }) => {
+  const alias = match.params.id;
+  const localDocs = JSON.parse(stateStore.state.localDocs);
 
-  handleSubmitDoc = async () => {
-    const { docsStore, routerStore } = this.props;
-    const { title, content, id } = this.state;
-
-    try {
-      await docsStore.updateDoc(id, title, content);
-      routerStore.push(`/docs/view/${id}`);
-    } catch (error) {
-      const errorMessage = error.response.data.message;
-      this.setState({ errorMessage });
-    }
+  const [title, setTitle] = useState(localDocs[alias].title);
+  const [content, setContent] = useState(localDocs[alias].content);
+  
+  const handleChange = (evt, cb) => {
+    cb(evt.target.value);
   };
 
-  submit = (e) => {
-    e.preventDefault();
-    
-    this.handleSubmitDoc();
-  };
+  const handleSave = () => {
+    const updatedDoc = stateStore.updateDoc({ alias, doc: { title, content } });
 
-  render() {
-    const id = this.props.docsStore?.doc?.id;
-
-    return (
-      <FullscreenWrapper>
-        <form onSubmit={this.submit}>
-          <DocLayout
-            paperTheme="color"
-            title={(
-              <TitleFieldWrapper>
-                <FormField
-                  id="title"
-                  label="title"
-                  value={this.state.title}
-                  onChange={e => this.setState({ title: e.target.value })}
-                />
-              </TitleFieldWrapper>
-            )}
-            backButtonClickHandler={() => this.props.routerStore.push(`/docs/view/${id}`)}
-            pageTitle="Edit docu ment"
-          >
-            <FormWrapper>
-              <FormField
-                id="content"
-                label="content"
-                value={this.state.content}
-                onChange={e => this.setState({ content: e.target.value })}
-              />
-
-              {this.state.errorMessage && <ErrorMessage message={this.state.errorMessage} />}
-
-              <ButtonWrapper>
-                <Button
-                  type="submit"
-                >
-                  Save
-                </Button>
-              </ButtonWrapper>
-            </FormWrapper>
-          </DocLayout>
-        </form>
-      </FullscreenWrapper>
-    );
+    routerStore.push(`/list/${updatedDoc.alias}`);
   }
-}
+  
+  return (
+    <FullscreenWrapper>
+      <Section className="section">
+        <Header>
+          <Title>Edit</Title>
+          <SaveButton onClick={handleSave}>Save</SaveButton>
+        </Header>
+        <DocPaper>
+          <div>
+            <EditableTitle
+              html={title}
+              disabled={false}
+              onChange={(event) => handleChange(event, setTitle)}
+            />
+          </div>
+          <div style={{ marginTop: '20px'}}>
+            <EditableContent
+              html={content}
+              disabled={false}
+              onChange={(event) => handleChange(event, setContent)}
+            />
+          </div>
+        </DocPaper>
+      </Section>
+    </FullscreenWrapper>
+  );
+}));
 
-export default EditDocPage;
+export default withRouter(CreateDocPage);

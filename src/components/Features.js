@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { variables } from '../constants';
 
-import bp from '../constants/bp';
 import Title from './Title';
 
 const Wrapper = styled.div`

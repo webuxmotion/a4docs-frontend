@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { ReactComponent as DocPreviewIcon } from '../images/doc-preview.svg';
 import { ReactComponent as EyeIcon } from '../icons/eye-icon.svg';
 
-import { bp, variables } from '../constants';
-
-
 const Wrapper = styled.div`
   width: 100%;
   position: relative;
