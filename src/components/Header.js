@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 
@@ -206,8 +206,25 @@ const SliderDot = styled.div`
 `;
 
 const Header = observer(({ stores }) => {
+  const node = useRef();
   const [activeMenu, setActiveMenu] = useState(false);
   const { stateStore } = stores;
+
+  const handleClick = e => {
+    if (node.current.contains(e.target)) {
+      return;
+    }
+    
+    setActiveMenu(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
 
   const handleChangeTheme = (theme) => {
     stateStore.setBodyClassName(theme);
@@ -234,40 +251,45 @@ const Header = observer(({ stores }) => {
       </div>
       <LoginButtonWrapper>
         <LoginButton to="/signin">Log In</LoginButton>
-        <BurgerButton active={activeMenu} onClick={() => setActiveMenu(!activeMenu)}>
-          <BurgerIcon></BurgerIcon>
-          { localDocsLength && <DocsCounter>{localDocsLength}</DocsCounter> }
-        </BurgerButton>
-        <NavigationList active={activeMenu}>
-          <LinkButton to="/list"><span>Local docs ({localDocsLength})</span></LinkButton>
-          <ThemeListTitle>Active Theme</ThemeListTitle>
-          <ThemeList>
-            <ThemeCircle 
-              onClick={() => handleChangeTheme('primary')}
-              color={variables.primaryColor}
-              colorName='primary'
-              bodyClassName={bodyClassName}
-            ><span>A</span></ThemeCircle>
-            <ThemeCircle 
-              onClick={() => handleChangeTheme('green')}
-              color="#2F6E75"
-              colorName='green'
-              bodyClassName={bodyClassName}
-            ><span>A</span></ThemeCircle>
-            <ThemeCircle 
-              onClick={() => handleChangeTheme('rebeccapurple')}
-              color="#663399"
-              colorName='rebeccapurple'
-              bodyClassName={bodyClassName}
-            ><span>A</span></ThemeCircle>
-            <ThemeCircle 
-              onClick={() => handleChangeTheme('black')}
-              color="#313131"
-              colorName='black'
-              bodyClassName={bodyClassName}
-            ><span>A</span></ThemeCircle>
-          </ThemeList>
-        </NavigationList>
+        <div ref={node}>
+          <BurgerButton active={activeMenu} onClick={() => setActiveMenu(!activeMenu)}>
+            <BurgerIcon></BurgerIcon>
+            { localDocsLength && <DocsCounter>{localDocsLength}</DocsCounter> }
+          </BurgerButton>
+          <NavigationList active={activeMenu}>
+            <LinkButton 
+              to="/list"
+              cb={() => setActiveMenu(false)}
+            ><span>Local docs ({localDocsLength})</span></LinkButton>
+            <ThemeListTitle>Active Theme</ThemeListTitle>
+            <ThemeList>
+              <ThemeCircle 
+                onClick={() => handleChangeTheme('primary')}
+                color={variables.primaryColor}
+                colorName='primary'
+                bodyClassName={bodyClassName}
+              ><span>A</span></ThemeCircle>
+              <ThemeCircle 
+                onClick={() => handleChangeTheme('green')}
+                color="#2F6E75"
+                colorName='green'
+                bodyClassName={bodyClassName}
+              ><span>A</span></ThemeCircle>
+              <ThemeCircle 
+                onClick={() => handleChangeTheme('rebeccapurple')}
+                color="#663399"
+                colorName='rebeccapurple'
+                bodyClassName={bodyClassName}
+              ><span>A</span></ThemeCircle>
+              <ThemeCircle 
+                onClick={() => handleChangeTheme('black')}
+                color="#313131"
+                colorName='black'
+                bodyClassName={bodyClassName}
+              ><span>A</span></ThemeCircle>
+            </ThemeList>
+          </NavigationList>
+        </div>
       </LoginButtonWrapper>
     </div>
   )

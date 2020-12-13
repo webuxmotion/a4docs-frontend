@@ -14,6 +14,10 @@ class Link extends Component {
       this.props.preRouter(event);
     }
 
+    if (this.props.cb) {
+      this.props.cb(event);
+    }
+
     this.props.routerStore.push(link);
   };
 
