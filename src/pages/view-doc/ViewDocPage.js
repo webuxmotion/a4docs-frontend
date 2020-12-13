@@ -8,6 +8,13 @@ import { ReactComponent as EditIconSvg } from '../../icons/edit-icon.svg';
 import FullscreenWrapper from '../../components/FullscreenWrapper';
 
 import { variables } from '../../constants';
+import { UnderlinedLink } from '../../components';
+
+const UnderlinedLinkWrapper = styled(UnderlinedLink)`
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+`;
 
 const Header = styled.div`
   height: 80px;
@@ -22,7 +29,7 @@ const Title = styled.h1`
   font-size: 48px;
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 180px;
 `;
 
 const Section = styled.div`
@@ -68,7 +75,11 @@ const CreateDocPage = inject('stateStore', 'routerStore')(observer(({ stateStore
     <FullscreenWrapper>
       <Section className="section">
         <Header>
-          <Title>View</Title>
+          <UnderlinedLinkWrapper
+            to="/list"
+            text="Local docs"
+          />
+          <Title>- View</Title>
         </Header>
         { title || content ? (
           <DocPaper>

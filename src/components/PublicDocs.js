@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import DocPreview from './DocPreview';
-import Link from './Link';
 import Title from './Title';
+
+import { UnderlinedLink } from './index';
 
 import { ReactComponent as ArrowIconSvg } from '../icons/arrow-right.svg';
 
@@ -85,39 +86,17 @@ const DocWrapper = styled.div`
   flex-shrink: 0;
 `;
 
-const LinkButton = styled(Link)`
-  margin-top: 30px;
-  max-width: 400px;
-  cursor: pointer;
-  font-size: 32px;
-  font-weight: bold;
-  margin-top: 60px;
-  display: inline-block;
-  position: relative;
-
-  &:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: -3px;
-    left: 0;
-    height: 10px;
-    background-color: var(--color-secondary);
-  }
-
-  span {
-    position: relative;
-    z-index: 2;
-  }
-`;
-
 const PublicDocs = () => (
   <Wrapper className="section">
     <Container className="container">
       <Cell>
         <Title>Meet <br/>public <br/>docs</Title>
         <Description>Create documents, make them public and enjoy likes, comments and thanks</Description>
-        <LinkButton to="/public-docs"><span>See public docs</span></LinkButton>
+        <UnderlinedLink 
+          to="/public-docs"
+          text="See public docs"
+          className="mt-6"
+        />
         <ArrowList>
           <ArrowWrapper leftarrow="true">
             <ArrowIcon leftarrow="true" />

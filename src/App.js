@@ -11,7 +11,7 @@ import ViewDocPage from './pages/view-doc/ViewDocPage';
 import EditDocPage from './pages/edit-doc/EditDocPage';
 import LandingPage from './pages/landing/LandingPage';
 
-import Header from './components/Header';
+import { Header } from './components';
 import GlobalStyle from './components/GlobalStyle';
 import Footer from './components/Footer';
 

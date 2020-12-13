@@ -65,6 +65,18 @@ const GlobalStyle = createGlobalStyle`
     padding-right: 10%;
     padding-left: 10%;
   }
+
+  .mt-2 {
+    margin-top: 20px;
+  }
+
+  .mt-6 {
+    margin-top: 60px;
+  }
+
+  .mb-2 {
+    margin-bottom: 20px;
+  }
 `;
  
 export default GlobalStyle;

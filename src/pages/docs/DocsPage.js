@@ -52,7 +52,7 @@ const CreateDocPage = inject('stateStore', 'routerStore')(observer(({ stateStore
           <Title>Local docs</Title>
         </Header>
         <DocList>
-          { Object.keys(localDocsObj).map(alias => {
+          { Object.keys(localDocsObj).reverse().map(alias => {
             const doc = localDocsObj[alias];
 
             return (
